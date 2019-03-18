@@ -1,0 +1,10 @@
+Bugs:
+  ☐ Login doesn't show a notice when password is wrong
+v2.0:
+react.movielists.ca:
+  ☐ Clean up redux implementation. Put fetch in the action. Put actions in separate folder
+  ☐ Implement React Hooks instead of classes
+  ☐ Finish profile fields
+  ☐ Design user profile @Jonathan
+vue.movielists.ca:
+angular.movielists.ca:
