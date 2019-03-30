@@ -13,8 +13,9 @@ import Signup from './components/Signup'
 import MakeList from './components/MakeList'
 import Lists from './components/Lists'
 import List from './components/List'
-import searchListResults from './components/SearchListResults'
-import FilterDropdown from './components/FilterDropdown'
+// Commented. We do NOT use them
+import SearchListResults from './components/SearchListResults'
+// import FilterDropdown from './components/FilterDropdown'
 import Search from './components/Search'
 import Movie from './components/Movie'
 import LoginAlert from './components/LoginAlert'
@@ -23,8 +24,6 @@ import TagSearchResults from './components/TagSearchResults'
 import MyReviews from './components/MyReviews'
 import Profile from './components/Profile'
 
-import { BACKEND_DOMAIN } from './Global'
-import SearchListResults from './components/SearchListResults'
 import EditList from './components/EditList'
 
 // GLOBAL VARIABLES
