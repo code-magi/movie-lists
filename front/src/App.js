@@ -13,8 +13,8 @@ import Signup from './components/Signup'
 import MakeList from './components/MakeList'
 import Lists from './components/Lists'
 import List from './components/List'
-// Commented. We do NOT use them
 import SearchListResults from './components/SearchListResults'
+// Commented. We do NOT use them
 // import FilterDropdown from './components/FilterDropdown'
 import Search from './components/Search'
 import Movie from './components/Movie'
@@ -28,7 +28,7 @@ import EditList from './components/EditList'
 
 // GLOBAL VARIABLES
 
-class UnconnectedApp extends Component {
+class App extends Component {
   constructor (props) {
     super(props)
     this.state = { verified: false }
@@ -90,15 +90,16 @@ class UnconnectedApp extends Component {
     return <Movie movieId={movieId} />
   }
 
+  // devs only
   // Render Test comp for fetch data from mongo and understand that it works
-  renderTest () {
-    console.log('test page rendered')
-    return (
-      <div>
-        <MyReviews />
-      </div>
-    )
-  }
+  // renderTest () {
+  //   console.log('test page rendered')
+  //   return (
+  //     <div>
+  //       <MyReviews />
+  //     </div>
+  //   )
+  // }
   renderSignup () {
     console.log('signup component rendered')
     return <Signup />
@@ -172,7 +173,7 @@ class UnconnectedApp extends Component {
             <Route exact path='/premium' render={this.renderPremium} />
             <Route exact path='/search' render={this.renderSearch} />
             <Route exact path='/movie/:id' render={this.renderMovie} />
-            <Route exact path='/test' render={this.renderTest} />
+            {/* <Route exact path='/test' render={this.renderTest} /> */}
             <Route exact path='/lists/makelist' render={this.renderMakeList} />
             <Route exact path='/lists' render={this.renderLists} />
             <Route exact path={'/lists/:id'} render={this.renderList} />
@@ -207,6 +208,4 @@ let mapStateToProps = function (state) {
   return { lists: state.state.lists }
 }
 
-let App = connect(mapStateToProps)(UnconnectedApp)
-
-export default App
+export default connect(mapStateToProps)(App)
