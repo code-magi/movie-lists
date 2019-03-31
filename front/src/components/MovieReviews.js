@@ -58,7 +58,7 @@ class MovieReviews extends Component {
         console.log("render MovieReviews ---------------------")
       let createDomElements = elem => {
         return (
-          <li>
+          <li key={elem.id}>
             <div>User: {elem.user.username}</div>
             <div>Review: {elem.reviewText}</div>
           </li>
