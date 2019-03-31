@@ -1,18 +1,13 @@
 import React, { Component } from 'react'
 import '../css/style.css'
-import { Redirect, Link } from 'react-router-dom'
-import { withRouter } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import '../css/MakeList.css'
-import { connect } from 'react-redux'
 import axios from 'axios'
-import App from '../App.js'
-import Modal from 'react-modal'
-import MovieSearchBody from './MakeListSearchMovie'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
 
 class TagSearchResults extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { filteredLists: [], allLists: [] }
     this.displayLists = this.displayLists.bind(this)
@@ -20,7 +15,7 @@ class TagSearchResults extends Component {
     this.startTagSearch = this.startTagSearch.bind(this)
     this.filterList = this.filterList.bind(this)
   }
-  startTagSearch() {
+  startTagSearch () {
     console.log('started tag search')
     let that = this
     console.log('fetching lists/wildsearch with no query')
@@ -53,7 +48,7 @@ class TagSearchResults extends Component {
       that.setState({ filteredLists: filteredLists })
     })
   }
-  filterList() {
+  filterList () {
     let that = this
     let filterByTag = elem => {
       if (elem.tags.split(' ^^ ').includes(this.props.tag)) {
@@ -68,25 +63,25 @@ class TagSearchResults extends Component {
     that.setState({ filteredLists: filteredLists })
   }
 
-  displayTags(tagList) {
-    let that = this
+  displayTags (tagList) {
+    // let that = this
     return tagList.split(' ^^ ').map((elem, index) => {
       return (
         <Link to={'/searchtags/' + elem}>
-          <span className="wild-tags ml-1 mr-1">
-            {elem} <span name={index} className="fas fa-tag" />
+          <span className='wild-tags ml-1 mr-1'>
+            {elem} <span name={index} className='fas fa-tag' />
           </span>
         </Link>
       )
     })
   }
 
-  displayLists() {
+  displayLists () {
     let elemToDOM = elem => {
       return (
-        <li className="list-item">
+        <li className='list-item'>
           <Link to={'/lists/' + elem._id}>
-            <h5 className="title-lists">{elem.name}</h5>
+            <h5 className='title-lists'>{elem.name}</h5>
           </Link>
           <FacebookShareButton
             url={window.location.origin + '/lists/' + elem._id}
@@ -105,14 +100,14 @@ class TagSearchResults extends Component {
     return mappedLists
   }
 
-  render() {
+  render () {
     console.log('rendered tagsearchresults component')
     this.startTagSearch()
     return (
-      <div className="container-fluid main-container-tag-search">
-        <h3 className="mb-5">Lists with Tag: {this.props.tag}</h3>
-        <div className="container">
-          <ol className="tag-results-holder mt-3">{this.displayLists()}</ol>
+      <div className='container-fluid main-container-tag-search'>
+        <h3 className='mb-5'>Lists with Tag: {this.props.tag}</h3>
+        <div className='container'>
+          <ol className='tag-results-holder mt-3'>{this.displayLists()}</ol>
         </div>
       </div>
     )

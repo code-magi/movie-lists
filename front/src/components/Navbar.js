@@ -183,7 +183,7 @@ class UnconnectedNavbar extends Component {
         id='navbar-main-style'
       >
         <Link to='/' className='navbar-brand'>
-          <img src={Movielogo} className='logo-navbar' />
+          <img src={Movielogo} className='logo-navbar' alt='' />
         </Link>
 
         <button
@@ -224,7 +224,7 @@ class UnconnectedNavbar extends Component {
                     id='searchText'
                     placeholder='Search movies'
                     aria-label='Search'
-                    autocomplete='off'
+                    autoComplete='off'
                   />
                 </form>
 
@@ -262,7 +262,7 @@ class UnconnectedNavbar extends Component {
                   id='searchTextTwo'
                   placeholder='Search movies'
                   aria-label='Search'
-                  autocomplete='off'
+                  autoComplete='off'
                 />
               </form>
             </li>
@@ -311,9 +311,9 @@ class UnconnectedNavbar extends Component {
 
 let mapStateToProps = function (state) {
   return {
-    loggedIn: state.state.loggedIn,
-    user: state.state.user,
-    avatar: state.state.avatar
+    loggedIn: state.user.loggedIn,
+    user: state.user.user,
+    avatar: state.user.avatar
   }
 }
 let Navbar = connect(mapStateToProps)(withRouter(UnconnectedNavbar))

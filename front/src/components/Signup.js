@@ -31,8 +31,8 @@ class UnconnectedSignup extends Component {
     this.state = {
       inputEmail: '',
       inputPassword: '',
-      inputConfirmPassword:"",
-      inputUsername:"",
+      inputConfirmPassword: '',
+      inputUsername: '',
       modalIsOpen: true,
       modalMessage: ''
     }
@@ -48,10 +48,10 @@ class UnconnectedSignup extends Component {
   handleInputEmail (evt) {
     this.setState({ inputEmail: evt.currentTarget.value })
   }
-  handleInputUsername(evt) {
+  handleInputUsername (evt) {
     this.setState({ inputUsername: evt.currentTarget.value })
   }
-  handleInputPassword(evt) {
+  handleInputPassword (evt) {
     this.setState({ inputPassword: evt.currentTarget.value })
   }
   handleInputConfirmPassword (evt) {
@@ -70,8 +70,8 @@ class UnconnectedSignup extends Component {
     let reqBody = {
       email: this.state.inputEmail,
       password: this.state.inputPassword,
-      password2:this.state.inputConfirmPassword,
-      username:this.state.inputUsername
+      password2: this.state.inputConfirmPassword,
+      username: this.state.inputUsername
     }
     console.log('reqBody', reqBody)
     axios({
@@ -145,14 +145,14 @@ class UnconnectedSignup extends Component {
                 />
                 <div className='mb-1'>Email</div>
               </div>
-              <div className=" ml-2">
+              <div className=' ml-2'>
                 <input
-                  type="text"
+                  type='text'
                   onChange={this.handleInputUsername}
                   value={this.state.inputUsername}
-                  className="input-login-signup"
+                  className='input-login-signup'
                 />
-                <div className="mb-1">Username</div>
+                <div className='mb-1'>Username</div>
               </div>
               <div>
                 <input
@@ -185,16 +185,9 @@ class UnconnectedSignup extends Component {
 }
 
 let mapStateToProps = function (state) {
-  return { loggedIn: state.state.loggedIn }
+  return { loggedIn: state.user.loggedIn }
 }
 
 let Signup = connect(mapStateToProps)(UnconnectedSignup)
 
 export default Signup
-
-// // add as list item in navbar
-// {
-//   /* <li className="nav-item nav-link">
-//                 <LoginSignup/>
-//                 </li> */
-// }

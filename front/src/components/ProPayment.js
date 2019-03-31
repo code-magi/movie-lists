@@ -6,10 +6,10 @@ export default class ProPayment extends React.Component {
   onToken = async token => {
     console.log('token ', token)
 
-    // With axios we should use try/catch. In case of res.code=400 axios retrun reject of the promise and it falls to catch branch
+    // With axios we should use try/catch. In case of res.code=400 axios return reject of the promise and it falls to catch branch
     // Standard fetch() always return resolved promise
     try {
-      // Destruct data from axios responce
+      // Destruct data from axios response
     let {data} = await(
       axios({
         url:'/api/pmnts/premium',

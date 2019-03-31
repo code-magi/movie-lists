@@ -6,8 +6,8 @@ import { withRouter } from 'react-router'
 import '../css/MakeList.css'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import App from '../App.js'
-import Modal from 'react-modal'
+// import App from '../App.js'
+// import Modal from 'react-modal'
 
 class UnconnectedMyReviews extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class UnconnectedMyReviews extends Component {
     this.state = { reviews: [] }
   }
   componentDidMount = () => {
-    let that = this
+    // let that = this
     console.log('Fetching all of users reviews')
 
     this.update()
@@ -109,7 +109,7 @@ class UnconnectedMyReviews extends Component {
       <div className="container-fluid main-container-my-reviews">
         <div className="container pt-4">
           <h2 className="text-center mb-5 mt-5">My Reviews</h2>
-          <div class="my-review-holder mt-2"> {this.renderReviews()}</div>
+          <div className="my-review-holder mt-2"> {this.renderReviews()}</div>
         </div>
       </div>
     )
@@ -117,7 +117,7 @@ class UnconnectedMyReviews extends Component {
 }
 
 let mapStateToProps = function(state) {
-  return { loggedIn: state.state.loggedIn }
+  return { loggedIn: state.user.loggedIn }
 }
 
 let MyReviews = connect(mapStateToProps)(withRouter(UnconnectedMyReviews))

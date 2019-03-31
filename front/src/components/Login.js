@@ -4,11 +4,9 @@ import { Redirect } from 'react-router-dom'
 import '../css/LoginSignup.css'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import App from '../App.js'
+// import App from '../App.js'
 import Modal from 'react-modal'
 // import { BACKEND_DOMAIN } from '../Global'
-
-Modal.setAppElement(App)
 
 const customStyles = {
   content: {
@@ -19,12 +17,15 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     zIndex: '50000000000',
-    webkitBoxShadow: '0px 1px 4px 1px rgba(201, 201, 201, 0.27)',
-    mozBoxShadow: '0px 1px 4px 1px rgba(201, 201, 201, 0.27)',
+    WebkitBoxShadow: '0px 1px 4px 1px rgba(201, 201, 201, 0.27)',
+    MozBoxShadow: '0px 1px 4px 1px rgba(201, 201, 201, 0.27)',
     boxShadow: '0px 1px 4px 1px rgba(201, 201, 201, 0.27)',
     backgroundColor: '#F7F7F7'
   }
 }
+
+// Previously was (App) but should be a react app DOM element
+Modal.setAppElement('#root')
 
 class UnconnectedLogin extends Component {
   constructor (props) {
@@ -113,6 +114,7 @@ class UnconnectedLogin extends Component {
   closeModal () {
     this.setState({ modalIsOpen: false })
   }
+
   render () {
     if (!this.props.loggedIn && this.state.modalIsOpen) {
       return (
@@ -260,16 +262,9 @@ class UnconnectedLogin extends Component {
 // }
 
 let mapStateToProps = function (state) {
-  return { loggedIn: state.state.loggedIn }
+  return { loggedIn: state.user.loggedIn }
 }
 
 let Login = connect(mapStateToProps)(UnconnectedLogin)
 
 export default Login
-
-// add as list item in navbar
-{
-  /* <li className="nav-item nav-link">
-                <LoginSignup/>
-                </li> */
-}

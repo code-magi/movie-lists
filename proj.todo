@@ -1,11 +1,17 @@
 Bugs:
   ☐ Login doesn't show a notice when password is wrong
+  ☐ Make lists empty after logout. Lists[] was in root of Redux Store in old version Redux. Now we have lists{}. After logout we need dispatch that action to listsReducer
 v2.0:
 react.movielists.ca:
-  ☐ Clean up redux implementation. Put fetch in the action. Put actions in separate folder
+  ✔ Clean up redux implementation. Store.Store @done(19-03-30 19:18)
+  ☐ Implement several reducers. userReducer, listsReducer, profileReducer
+  ☐ Cleanup unused imports and variables
+  ☐ Bring thunk in actions.
+  ☐ Put fetch in the action.
   ☐ Implement React Hooks instead of classes
   ☐ Finish profile fields
   ☐ Design user profile @Jonathan
   ✔ Change icon @done(19-03-29 21:31)
+  ☐ Exchange .bind() to arrow func
 vue.movielists.ca:
 angular.movielists.ca:

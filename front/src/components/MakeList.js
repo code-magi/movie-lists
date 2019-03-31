@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import '../css/style.css'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
 import '../css/MakeList.css'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import App from '../App.js'
+// import App from '../App.js'
 import Modal from 'react-modal'
 import MovieSearchBody from './MakeListSearchMovie'
 
@@ -24,16 +24,18 @@ const ModalStyles = {
 }
 
 class ChosenMovies extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.displayMovies = this.displayMovies.bind(this)
   }
 
-  displayMovies() {
-    let addSignVisibility = 'visible'
-    if (this.props.parent.state.chosenMovies.length < 1) {
-      addSignVisibility = 'hidden'
-    }
+  displayMovies () {
+    // db 2019-03-20 commented. React warned Didn't use addSignVisibility
+    // let addSignVisibility = 'visible'
+    // if (this.props.parent.state.chosenMovies.length < 1) {
+    //   addSignVisibility = 'hidden'
+    // }
+
     // let imageAnimationStyle = { width: '60px', height: '90px' }
     // let showTrashIcon=()=>{
     //   imageAnimationStyle={width:"600px"}
@@ -44,18 +46,19 @@ class ChosenMovies extends Component {
     let movieDOMSArr = moviesArr.map((elem, index) => {
       return (
         <span
-          className="each-chosen-movie-holder "
+          className='each-chosen-movie-holder '
           onClick={() => this.removeMovie(elem, index)}
         >
           <img
-            className="image-inside-list"
+            className='image-inside-list'
             src={'https://image.tmdb.org/t/p/w500' + elem.poster_path}
             // onClick={() => this.removeMovie(elem, index)}
             // onMouseOver={()=>{showTrashIcon()}}
+            alt=''
           />
-          <div className="middle">
-            <a href="#" className="icon-trash">
-              <i className="far fa-trash-alt trash" />
+          <div className='middle'>
+            <a href='#' className='icon-trash'>
+              <i className='far fa-trash-alt trash' />
             </a>
           </div>
           {/* <div className="image-inside-list-title">{elem.original_title}</div> */}
@@ -65,7 +68,7 @@ class ChosenMovies extends Component {
     return movieDOMSArr
   }
 
-  removeMovie(elem, index) {
+  removeMovie (elem, index) {
     console.log('removing Movie')
     console.log('elem', elem)
     console.log('index', index)
@@ -77,19 +80,20 @@ class ChosenMovies extends Component {
     this.props.parent.setState({ chosenMovies: newArr })
   }
 
-  render() {
-    return <div className="row row-bottom-make">{this.displayMovies()}</div>
+  render () {
+    return <div className='row row-bottom-make'>{this.displayMovies()}</div>
   }
 }
 
 class TagsBody extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.handleInputTag = this.handleInputTag.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  handleInputTag(evt) {
-    //this adds constraints to input tags field. for example ^ cant be used and no more than 15 characters
+
+  handleInputTag (evt) {
+    // this adds constraints to input tags field. for example ^ cant be used and no more than 15 characters
     if (
       evt.target.value[evt.target.value.length - 1] === '^' ||
       evt.target.value.length >= 25
@@ -98,8 +102,9 @@ class TagsBody extends Component {
     }
     this.props.grandParent.setState({ inputTag: evt.currentTarget.value })
   }
-  //adds tag
-  handleSubmit(evt) {
+
+  // adds tag
+  handleSubmit (evt) {
     evt.preventDefault()
     if (this.props.grandParent.state.inputTag.trim().length) {
       console.log('adding tag', this.props.grandParent.state.inputTag)
@@ -119,16 +124,16 @@ class TagsBody extends Component {
     }
   }
 
-  displayTags() {
+  displayTags () {
     let that = this
     return this.props.grandParent.state.tags.map((elem, index) => {
       return (
-        <div className="tag">
+        <div className='tag'>
           {elem}
           <span
             name={index}
-            className="fas fa-tag ml-2"
-            data-fa-transform="rotate-30"
+            className='fas fa-tag ml-2'
+            data-fa-transform='rotate-30'
             onClick={evt => {
               console.log('evt', evt)
               console.log('i just clicked on a tag')
@@ -145,19 +150,19 @@ class TagsBody extends Component {
     })
   }
 
-  render() {
+  render () {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <input
-            type="text"
+            type='text'
             onChange={this.handleInputTag}
-            name="tag"
+            name='tag'
             value={this.props.grandParent.state.inputTag}
-            autoComplete="off"
-            placeholder="Ex: spooky "
+            autoComplete='off'
+            placeholder='Ex: spooky '
           />
-          <div className="tags-holder">{this.displayTags()}</div>
+          <div className='tags-holder'>{this.displayTags()}</div>
         </form>
       </div>
     )
@@ -165,20 +170,20 @@ class TagsBody extends Component {
 }
 
 class ListPropertiesForm extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.inputTextHandler = this.inputTextHandler.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  inputTextHandler(e) {
+  inputTextHandler (e) {
     if (e.target.name === 'listName') {
       this.props.parent.setState({ inputTitle: e.currentTarget.value })
     } else if (e.target.name === 'description') {
       this.props.parent.setState({ inputDescription: e.currentTarget.value })
     }
   }
-  handleSubmit(e) {
+  handleSubmit (e) {
     e.preventDefault()
     if (e.target[0].name === 'tag') {
     } else if (this.props.parent.state.inputTitle.length !== 0) {
@@ -188,35 +193,35 @@ class ListPropertiesForm extends Component {
     }
   }
 
-  render() {
+  render () {
     return (
-      <form onSubmit={this.handleSubmit} className="form-make-list">
+      <form onSubmit={this.handleSubmit} className='form-make-list'>
         <h6>List Name:</h6>
         <input
-          type="text"
-          name="listName"
-          className="list-name mb-3"
-          placeholder="Ex: My top 5 scary movies"
+          type='text'
+          name='listName'
+          className='list-name mb-3'
+          placeholder='Ex: My top 5 scary movies'
           onChange={this.inputTextHandler}
         />
 
         <h6>Description:</h6>
         <textarea
-          name="description"
+          name='description'
           onChange={this.inputTextHandler}
           placeholder="Ex: This is a list of the scariest movies I've ever seen. It will scare your socks off!"
-          className="text-area-make mb-3"
+          className='text-area-make mb-3'
         />
         <h6>Input Tags: Press enter to submit each tag</h6>
         <TagsBody grandParent={this.props.parent} />
-        <input type="submit" className="btn make-submit-button" />
+        <input type='submit' className='btn make-submit-button' />
       </form>
     )
   }
 }
 
 class UnconnectedMakeList extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       inputTitle: '',
@@ -235,32 +240,32 @@ class UnconnectedMakeList extends Component {
     this.addList = this.addList.bind(this)
   }
 
-  openModal() {
+  openModal () {
     this.setState({ modalIsOpen: true })
   }
-  afterOpenModal() {
+  afterOpenModal () {
     // this.subtitle.style.color="#f00"
   }
-  closeModal() {
+  closeModal () {
     this.setState({ modalIsOpen: false })
   }
-  displayMessage() {
+  displayMessage () {
     if (this.state.message) {
       return (
-        <div className="jump" style={{ color: 'red' }}>
+        <div className='jump' style={{ color: 'red' }}>
           {this.state.message}
         </div>
       )
     }
   }
 
-  addList() {
+  addList () {
     let that = this
-    //tags will be sent as a string which separates the movies with ^^ .
+    // tags will be sent as a string which separates the movies with ^^ .
     let tagBody = this.state.tags.join(' ^^ ')
     let reqBody = {
       name: this.state.inputTitle,
-      movieArr: this.state.chosenMovies, /////TODO
+      movieArr: this.state.chosenMovies, /// //TODO
       description: this.state.inputDescription,
       tags: tagBody
     }
@@ -284,26 +289,26 @@ class UnconnectedMakeList extends Component {
       .catch(() => console.log('error in request'))
   }
 
-  render() {
+  render () {
     if (!this.props.loggedIn) {
-      return <Redirect to="/loginalert" />
+      return <Redirect to='/loginalert' />
     } else {
       return (
-        <div className="container-fluid main-container-make">
+        <div className='container-fluid main-container-make'>
           {this.displayMessage()}
-          <div className="container-fluid make-holder">
-            <h2 className="text-center mb-5">Make List</h2>
-            <div className="row row-top-make p-0">
-              <div className="col-md-6 p-2 form-holder-make">
+          <div className='container-fluid make-holder'>
+            <h2 className='text-center mb-5'>Make List</h2>
+            <div className='row row-top-make p-0'>
+              <div className='col-md-6 p-2 form-holder-make'>
                 <ListPropertiesForm parent={this} />
               </div>
-              <div className="col-md-6 search-holder-make">
+              <div className='col-md-6 search-holder-make'>
                 <MovieSearchBody parent={this} />
               </div>
             </div>
           </div>
           <h4>Your Chosen Movies</h4>
-          <div className="container container-movies-chosen">
+          <div className='container container-movies-chosen'>
             <ChosenMovies parent={this} />
           </div>
           <Modal
@@ -313,12 +318,12 @@ class UnconnectedMakeList extends Component {
             style={ModalStyles}
           >
             <h5>Confirm to finish making List</h5>
-            <button onClick={this.addList} className="button-modal-list">
+            <button onClick={this.addList} className='button-modal-list'>
               CONFIRM
             </button>
             <button
               onClick={() => this.setState({ modalIsOpen: false })}
-              className="button-modal-list"
+              className='button-modal-list'
             >
               NOT YET
             </button>
@@ -329,8 +334,8 @@ class UnconnectedMakeList extends Component {
   }
 }
 
-let mapStateToProps = function(state) {
-  return { loggedIn: state.state.loggedIn }
+let mapStateToProps = function (state) {
+  return { loggedIn: state.user.loggedIn }
 }
 
 let MakeList = connect(mapStateToProps)(withRouter(UnconnectedMakeList))

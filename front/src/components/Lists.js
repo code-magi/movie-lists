@@ -4,11 +4,11 @@ import { Redirect, Link } from 'react-router-dom'
 import '../css/LoginSignup.css'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import App from '../App.js'
+// import App from '../App.js'
 import { withRouter } from 'react-router'
-import Modal from 'react-modal'
-import { isThisQuarter } from 'date-fns'
-import { EditLists } from './EditList'
+// import Modal from 'react-modal'
+// import { isThisQuarter } from 'date-fns'
+// import { EditLists } from './EditList'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
 
 class UnconnectedLists extends Component {
@@ -197,7 +197,7 @@ class UnconnectedLists extends Component {
 }
 
 let mapStateToProps = function(state) {
-  return { lists: state.state.lists, loggedIn: state.state.loggedIn }
+  return { lists: state.lists.lists, loggedIn: state.user.loggedIn }
 }
 let Lists = connect(mapStateToProps)(withRouter(UnconnectedLists))
 

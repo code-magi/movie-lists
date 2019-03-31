@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "../css/style.css";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { withRouter } from "react-router";
 
 import "../css/MakeList.css";
 import { connect } from "react-redux";
 import axios from "axios";
-import App from "../App.js";
+// import App from "../App.js";
 import Modal from "react-modal";
 import EditListSearchMovie from "./EditListSearchMovie";
 
@@ -30,10 +30,12 @@ class ChosenMovies extends Component {
   }
 
   displayMovies() {
-    let addSignVisibility = "visible";
-    if (this.props.parent.state.chosenMovies.length < 1) {
-      addSignVisibility = "hidden";
-    }
+    // db 2019-03-20 commented. React warned Didn't use addSignVisibility
+    // let addSignVisibility = "visible";
+    // if (this.props.parent.state.chosenMovies.length < 1) {
+    //   addSignVisibility = "hidden";
+    // }
+
     // let imageAnimationStyle = { width: '60px', height: '90px' }
     // let showTrashIcon=()=>{
     //   imageAnimationStyle={width:"600px"}
@@ -52,6 +54,7 @@ class ChosenMovies extends Component {
             src={"https://image.tmdb.org/t/p/w500" + elem.poster_path}
             // onClick={() => this.removeMovie(elem, index)}
             // onMouseOver={()=>{showTrashIcon()}}
+            alt=''
           />
           <div className="middle">
             <a href="#" className="icon-trash">
@@ -347,7 +350,7 @@ class UnconnectedEditList extends Component {
 }
 
 let mapStateToProps = function(state) {
-  return { loggedIn: state.state.loggedIn, editList: state.state.editList };
+  return { loggedIn: state.user.loggedIn, editList: state.lists.editList };
 };
 
 let EditList = connect(mapStateToProps)(withRouter(UnconnectedEditList));

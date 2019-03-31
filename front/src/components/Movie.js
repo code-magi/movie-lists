@@ -59,7 +59,7 @@ class Movie extends Component {
             {console.log('DATA', this.state.movieData)}
             <img
               src={'https://image.tmdb.org/t/p/' + this.checkIfImage()}
-              className="thumbnail"
+              className="thumbnail" alt=''
             />
           </div>
           <div className="col-md-10 pb-2">
@@ -102,6 +102,7 @@ class Movie extends Component {
               <a
                 href={'http://imdb.com/title/' + this.state.movieData.imdb_id}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="btn button-movie-page"
               >
                 See on IMDB
@@ -116,8 +117,9 @@ class Movie extends Component {
     )
   }
   displayReviews() {
-    let getReviews = () => {}
+    // let getReviews = () => {}
   }
+
   // getReviews = () => {
   //   let that = this;
   //   console.log("fetched get reviews");

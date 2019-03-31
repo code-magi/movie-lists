@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import '../css/style.css'
-import { Redirect, Link } from 'react-router-dom'
-import { withRouter } from 'react-router'
+// import { Redirect, Link } from 'react-router-dom'
+// import { withRouter } from 'react-router'
 
 import '../css/MakeList.css'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import App from '../App.js'
-import Modal from 'react-modal'
+// import App from '../App.js'
+// import Modal from 'react-modal'
 
 class UnconnectedAddReviewForm extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class UnconnectedAddReviewForm extends Component {
       let allReviewsArr = response.data.reviews
       console.log('allReviewsArr', allReviewsArr)
       let filterByUser = elem => {
-        if (elem.userId == that.props.userId && elem.movieId==that.props.movieId) {
+        if (elem.userId === that.props.userId && elem.movieId===that.props.movieId) {
           return true;
         }
       }
@@ -82,7 +82,7 @@ class UnconnectedAddReviewForm extends Component {
       let allReviewsArr = response.data.reviews
       console.log('allReviewsArr', allReviewsArr)
       let filterByUser = elem => {
-        if (elem.userId == that.props.userId && elem.movieId==that.props.movieId) {
+        if (elem.userId === that.props.userId && elem.movieId===that.props.movieId) {
           return true;
         }
       }
@@ -160,7 +160,7 @@ class UnconnectedAddReviewForm extends Component {
 }
 
 let mapStateToProps = function(state) {
-  return { userId: state.state.userId }
+  return { userId: state.user.userId }
 }
 let AddReviewForm = connect(mapStateToProps)(UnconnectedAddReviewForm)
 export default AddReviewForm

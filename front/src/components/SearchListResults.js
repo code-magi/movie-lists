@@ -1,23 +1,19 @@
 import React, { Component } from 'react'
 import '../css/style.css'
-import { Redirect, Link } from 'react-router-dom'
-import { withRouter } from 'react-router'
+import { Link } from 'react-router-dom'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
 
 import '../css/MakeList.css'
-import { connect } from 'react-redux'
 import axios from 'axios'
-import App from '../App.js'
-import Modal from 'react-modal'
 
 class SearchListResults extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { searchQuery: '', results: [] }
     this.startSearch = this.startSearch.bind(this)
     this.displayTags = this.displayTags.bind(this)
   }
-  startSearch() {
+  startSearch () {
     let that = this
     console.log('getting item id')
     let path = window.location.pathname
@@ -47,29 +43,29 @@ class SearchListResults extends Component {
       }
     })
   }
-  displayTags(tagList) {
-    let that = this
+  displayTags (tagList) {
+    // let that = this
     return tagList.split(' ^^ ').map((elem, index) => {
       return (
         <Link to={'/searchtags/' + elem}>
-          <span className="wild-tags ml-1 mr-1">
-            {elem} <span name={index} className="fas fa-tag" />
+          <span className='wild-tags ml-1 mr-1'>
+            {elem} <span name={index} className='fas fa-tag' />
           </span>
         </Link>
       )
     })
   }
 
-  displayResults() {
-    //results is an array of lists
+  displayResults () {
+    // results is an array of lists
     console.log('displaying results')
     let resultsToDom = elem => {
       return (
-        <li className="list-item">
+        <li className='list-item'>
           <Link to={'/lists/' + elem._id}>
-            <div className="title-lists">{elem.name}</div>
+            <div className='title-lists'>{elem.name}</div>
           </Link>
-          <span className="list-icons">
+          <span className='list-icons'>
             <FacebookShareButton
               url={window.location.origin + '/lists/' + elem._id}
               className={'fab fa-facebook ml-1 mr-1 icon-list'}
@@ -88,18 +84,18 @@ class SearchListResults extends Component {
     return this.state.results.map(resultsToDom)
   }
 
-  render() {
+  render () {
     window.onhashchange = () => {
       this.startSearch()
     }
     this.startSearch()
     return (
-      <div className="container-fluid main-container-wild-search">
-        <h3 className="mb-5">These are your search results</h3>
-        <div className="container">
+      <div className='container-fluid main-container-wild-search'>
+        <h3 className='mb-5'>These are your search results</h3>
+        <div className='container'>
           <ol
             onhashchange={window.onhashchange}
-            className="wild-results-holder mt-3"
+            className='wild-results-holder mt-3'
           >
             {this.displayResults()}
           </ol>

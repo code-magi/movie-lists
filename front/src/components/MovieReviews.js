@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
-import NumberFormat from 'react-number-format'
-import Movie from './Movie'
+// import { Link } from 'react-router-dom'
+// import NumberFormat from 'react-number-format'
+// import Movie from './Movie'
 
 class MovieReviews extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class MovieReviews extends Component {
       console.log('allReviews', allReviews)
       let filterMovie = elem => {
         //   console.log('elem', elem)
-          if (elem.movieId == that.state.movieId) {
+          if (elem.movieId === that.state.movieId) {
             return true;
           }
         };

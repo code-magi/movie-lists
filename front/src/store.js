@@ -1,5 +1,8 @@
 import { createStore } from 'redux'
-import reducer from './reducers/reducer'
+// import reducer from './reducers/reducer'
+
+// In index.js we exported combineReducers variable, but since it was default export we can name it here as we want
+import rootReducers from './reducers/index'
 
 // const reducer = function (state, action) {
 //   console.log('dispatch triggered')
@@ -52,20 +55,23 @@ import reducer from './reducers/reducer'
 //       return { state }
 //   }
 // }
-const initialState = {
-  loggedIn: false,
-  user: '',
-  userId: '',
-  avatar: '',
-  profile: null,
-  isProfileLoaded: false
 
-  // lists: []
-}
+// Root level of Store is empty. Each reducer has own initialState
+const initialState = {}
+// const initialState = {
+//   loggedIn: false,
+//   user: '',
+//   userId: '',
+//   avatar: '',
+//   profile: null,
+//   isProfileLoaded: false
+
+//   // lists: []
+// }
 
 const store = createStore(
-  reducer,
-  initialState,
+  rootReducers, // reducer
+  initialState, // InitialState
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 

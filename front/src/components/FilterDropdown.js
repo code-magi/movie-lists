@@ -1,17 +1,13 @@
 import React, { Component } from 'react'
 import '../css/style.css'
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '../css/LoginSignup.css'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import App from '../App.js'
-import { withRouter } from 'react-router'
-import Modal from 'react-modal'
-import { isThisQuarter } from 'date-fns'
 import '../css/FilterDropdown.css'
 
 class UnconnectedFilterDropdown extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       showMenu: true,
@@ -29,23 +25,23 @@ class UnconnectedFilterDropdown extends Component {
     this.handleAddToList = this.handleAddToList.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     console.log('Filter xPos', this.state.xPos)
     console.log('Filter yPos', this.state.yPos)
   }
   // openMenu(evt) {
   //   this.setState({ showMenu: true, xPos: evt.clientX, yPos: evt.clientY });
   // }
-  closeMenu() {
+  closeMenu () {
     this.setState({ showMenu: false })
     this.props.parent.setState({ addingToList: false })
   }
 
-  handleInputSearch(evt) {
+  handleInputSearch (evt) {
     this.setState({ inputSearch: evt.target.value })
   }
 
-  handleCheck(evt) {
+  handleCheck (evt) {
     console.log('evt', evt)
     let listId = evt.currentTarget.name
     if (evt.currentTarget.checked) {
@@ -63,11 +59,11 @@ class UnconnectedFilterDropdown extends Component {
       this.setState({ checkedListsIds: arr })
     }
   }
-  //add movie to each of the following checked lists //TODO
+  // add movie to each of the following checked lists //TODO
   // reqbody={lists:[listId1,listId2,listId3,list4],movieObject:movieObject]
-  handleAddToList() {
+  handleAddToList () {
     console.log('added movie to lists')
-    let that = this
+    // let that = this
     axios({
       method: 'put',
       url: '/api/lists/add-movie/',
@@ -80,8 +76,8 @@ class UnconnectedFilterDropdown extends Component {
       this.closeMenu()
     })
   }
-  //renders menu with filter
-  RenderMenu() {
+  // renders menu with filter
+  RenderMenu () {
     if (this.props.loggedIn === false) {
       this.props.parent.setState({
         message:
@@ -110,7 +106,7 @@ class UnconnectedFilterDropdown extends Component {
           <input
             onChange={this.handleCheck}
             name={elem._id}
-            type="checkbox"
+            type='checkbox'
             checked={checked}
           />
           <span> {elem.name}</span>
@@ -121,7 +117,7 @@ class UnconnectedFilterDropdown extends Component {
     let mappedMenuOptions = filteredMenu.map(makeMenuOptions)
     if (mappedMenuOptions.length === 0) {
       mappedMenuOptions = (
-        <Link to="./lists/makelist">
+        <Link to='./lists/makelist'>
           <div>No lists. Click to create a List</div>
         </Link>
       )
@@ -142,36 +138,36 @@ class UnconnectedFilterDropdown extends Component {
           textAlign: 'left',
           borderRadius: '5px'
         }}
-        className="add-list-holder"
+        className='add-list-holder'
         onClick={evt => {
           evt.stopPropagation()
         }}
       >
         <input
-          type="search"
-          name="search"
+          type='search'
+          name='search'
           onChange={this.handleInputSearch}
-          placeholder=" Search Your Lists"
-          className="search-add-list"
+          placeholder=' Search Your Lists'
+          className='search-add-list'
         />
         <input
-          type="button"
-          name="addToListButton"
+          type='button'
+          name='addToListButton'
           onClick={this.handleAddToList}
-          value="Add To List"
-          className="add-to-list-button mb-2"
+          value='Add To List'
+          className='add-to-list-button mb-2'
         />
-        <ol className="list-search-add-list p-0">{mappedMenuOptions}</ol>
+        <ol className='list-search-add-list p-0'>{mappedMenuOptions}</ol>
       </div>
     )
   }
 
-  render() {
+  render () {
     if (this.state.showMenu) {
       return (
         <div>
           <div
-            className="transparent"
+            className='transparent'
             style={{
               position: 'absolute',
               backgroundColor: 'rgba(0,0,0,0)',
@@ -194,8 +190,8 @@ class UnconnectedFilterDropdown extends Component {
   }
 }
 
-let mapStateToProps = function(state) {
-  return { loggedIn: state.state.loggedIn, lists: state.state.lists }
+let mapStateToProps = function (state) {
+  return { loggedIn: state.user.loggedIn, lists: state.lists.lists }
 }
 
 let FilterDropdown = connect(mapStateToProps)(UnconnectedFilterDropdown)

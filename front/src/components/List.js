@@ -1,26 +1,11 @@
-// import React, { Component } from 'react'
-// import '../css/style.css'
-// import { Redirect, Link } from 'react-router-dom'
-// import '../css/LoginSignup.css'
-// import { connect } from 'react-redux'
-// import axios from 'axios'
-// import App from '../App.js'
-// import Modal from 'react-modal'
-// import { FacebookShareButton, TwitterShareButton } from 'react-share'
-
-// class UnconnnectedList extends Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = { list: [] }
-//     this.displayList = this.displayList.bind(this)
 import React, { Component } from 'react'
 import '../css/style.css'
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '../css/LoginSignup.css'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import App from '../App.js'
-import Modal from 'react-modal'
+// import App from '../App.js'
+// import Modal from 'react-modal'
 import { withRouter } from 'react-router'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
 
@@ -181,6 +166,7 @@ class UnconnnectedList extends Component {
                             'https://image.tmdb.org/t/p/w500' + elem.poster_path
                           }
                           style={{ maxHeight: '50px' }}
+                          alt=''
                         />
                         <Link to={'/movie/' + elem.id}>
                           <span className="title-list">
@@ -221,7 +207,7 @@ class UnconnnectedList extends Component {
 }
 
 let mapStateToProps = function(state) {
-  return { userId: state.state.userId }
+  return { userId: state.user.userId }
 }
 
 let List = connect(mapStateToProps)(withRouter(UnconnnectedList))

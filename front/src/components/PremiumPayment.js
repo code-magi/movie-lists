@@ -6,10 +6,10 @@ export default class PremiumPayment extends React.Component {
   onToken = async token => {
     console.log('token ', token)
 
-    // With axios we should use try/catch. In case of res.code=400 axios retrun reject of the promise and it falls to catch branch
+    // With axios we should use try/catch. In case of res.code=400 axios return reject of the promise and it falls to catch branch
     // Standard fetch() always return resolved promise
     try {
-      // Destruct data from axios responce
+      // Destruct data from axios response
     let {data} = await(
       axios({
         url:'/api/pmnts/premium',
@@ -30,7 +30,7 @@ export default class PremiumPayment extends React.Component {
     } catch (error) {
       console.log(error.response)
       
-      // In axios case  our data is inside error.response object. It's usefull for handling specific error return by backend
+      // In axios case  our data is inside error.response object. It's useful for handling specific error return by backend
       let {data} = error.response
       alert(`Check You data please, ${data.error}`)
       // TODO: parse error message and redirect to appropriate page

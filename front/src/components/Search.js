@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { BrowserRouter, Route } from 'react-router-dom'
+// import { Route } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import $ from 'jquery'
 import FilterDropdown from './FilterDropdown'
@@ -13,9 +13,8 @@ class Search extends Component {
   }
 
   componentDidMount() {
-    {
-      this.checkLocalStorage()
-    }
+    this.checkLocalStorage()
+    
     let that = this
     let moviesCheck = document.getElementById('movies')
     moviesCheck.addEventListener('click', ({ target }) => {

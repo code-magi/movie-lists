@@ -39,7 +39,7 @@ class Profile extends Component {
 
   render () {
     console.log('this.props', this.props)
-    const { profile, isProfileLoaded, email, avatar } = this.props
+    const { profile, isProfileLoaded, avatar } = this.props
     let profileContent
 
     if (!isProfileLoaded) {
@@ -106,10 +106,10 @@ class Profile extends Component {
 
 let mapStateToProps = (state) => {
   return {
-    email: state.state.email,
-    avatar: state.state.avatar,
-    profile: state.state.profile,
-    isProfileLoaded: state.state.isProfileLoaded
+    email: state.user.email,
+    avatar: state.user.avatar,
+    profile: state.profile.profile,
+    isProfileLoaded: state.profile.isProfileLoaded
   }
 }
 export default connect(mapStateToProps)(Profile)

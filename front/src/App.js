@@ -205,7 +205,7 @@ class App extends Component {
   }
 }
 let mapStateToProps = function (state) {
-  return { lists: state.state.lists }
+  return { lists: state.lists.lists }
 }
 
 export default connect(mapStateToProps)(App)

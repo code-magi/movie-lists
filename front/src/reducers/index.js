@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
 
-// import userReducer from './userReducer.js'
-// import stockReducer from './stockReducer'
-// import socialReducer from './socialReducer'
+import userReducer from './userReducer.js'
+import listsReducer from './listsReducer'
+import profileReducer from './profileReducer'
 
 export default combineReducers({
-  // user: userReducer,
-  // stocks: stockReducer,
-  // social: socialReducer
+  user: userReducer,
+  lists: listsReducer,
+  profile: profileReducer
 })
