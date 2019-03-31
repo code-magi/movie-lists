@@ -9,13 +9,13 @@ import { FacebookShareButton, TwitterShareButton } from 'react-share'
 class TagSearchResults extends Component {
   constructor (props) {
     super(props)
-    this.state = { filteredLists: [], allLists: [] }
-    this.displayLists = this.displayLists.bind(this)
-    this.displayTags = this.displayTags.bind(this)
-    this.startTagSearch = this.startTagSearch.bind(this)
-    this.filterList = this.filterList.bind(this)
+    this.state = { 
+      filteredLists: [], 
+      allLists: [] 
+    }
   }
-  startTagSearch () {
+
+  startTagSearch = () => {
     console.log('started tag search')
     let that = this
     console.log('fetching lists/wildsearch with no query')
@@ -48,7 +48,8 @@ class TagSearchResults extends Component {
       that.setState({ filteredLists: filteredLists })
     })
   }
-  filterList () {
+
+  filterList = () => {
     let that = this
     let filterByTag = elem => {
       if (elem.tags.split(' ^^ ').includes(this.props.tag)) {
@@ -63,7 +64,7 @@ class TagSearchResults extends Component {
     that.setState({ filteredLists: filteredLists })
   }
 
-  displayTags (tagList) {
+  displayTags = (tagList) => {
     // let that = this
     return tagList.split(' ^^ ').map((elem, index) => {
       return (
@@ -76,7 +77,7 @@ class TagSearchResults extends Component {
     })
   }
 
-  displayLists () {
+  displayLists = () => {
     let elemToDOM = elem => {
       return (
         <li className='list-item'>

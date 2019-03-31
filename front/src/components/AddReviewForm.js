@@ -1,21 +1,20 @@
 import React, { Component } from 'react'
 import '../css/style.css'
-// import { Redirect, Link } from 'react-router-dom'
-// import { withRouter } from 'react-router'
 
 import '../css/MakeList.css'
 import { connect } from 'react-redux'
 import axios from 'axios'
-// import App from '../App.js'
-// import Modal from 'react-modal'
 
-class UnconnectedAddReviewForm extends Component {
+class AddReviewForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { inputReview: '',message:"" }
+    this.state = { 
+      inputReview: '',
+      message: ''
+    }
   }
+
   componentDidMount() {
-      let that=this
     console.log(
       'Component did mount---getting all reviews for the add review form'
     )
@@ -27,7 +26,7 @@ class UnconnectedAddReviewForm extends Component {
       let allReviewsArr = response.data.reviews
       console.log('allReviewsArr', allReviewsArr)
       let filterByUser = elem => {
-        if (elem.userId === that.props.userId && elem.movieId===that.props.movieId) {
+        if (elem.userId === this.props.userId && elem.movieId===this.props.movieId) {
           return true;
         }
       }
@@ -36,7 +35,7 @@ class UnconnectedAddReviewForm extends Component {
       let userReview = allReviewsArr.filter(filterByUser)[0]
       console.log('userReview', userReview)
       if (userReview) {
-        that.setState({
+        this.setState({
           inputReview: userReview.reviewText,
           review: userReview
         })
@@ -72,7 +71,6 @@ class UnconnectedAddReviewForm extends Component {
 //   }
 
   update = () => {
-      let that=this
     this.props.parent.update()
     axios({
       method: 'get',
@@ -82,7 +80,7 @@ class UnconnectedAddReviewForm extends Component {
       let allReviewsArr = response.data.reviews
       console.log('allReviewsArr', allReviewsArr)
       let filterByUser = elem => {
-        if (elem.userId === that.props.userId && elem.movieId===that.props.movieId) {
+        if (elem.userId === this.props.userId && elem.movieId===this.props.movieId) {
           return true;
         }
       }
@@ -91,16 +89,18 @@ class UnconnectedAddReviewForm extends Component {
       let userReview = allReviewsArr.filter(filterByUser)[0]
       console.log('userReview', userReview)
       if (userReview) {
-        that.setState({
+        this.setState({
           inputReview: userReview.reviewText,
           review: userReview
         })
       }
     })
   }
+
   handleInput = evt => {
     this.setState({ inputReview: evt.currentTarget.value })
   }
+
   handleSubmit = evt => {
     evt.preventDefault()
     if (this.state.review) {
@@ -132,6 +132,7 @@ class UnconnectedAddReviewForm extends Component {
       });
     }
   }
+  
   render() {
     return (
       <div className="container inner-container-your-review">
@@ -159,8 +160,10 @@ class UnconnectedAddReviewForm extends Component {
   }
 }
 
-let mapStateToProps = function(state) {
-  return { userId: state.user.userId }
+let mapStateToProps = state => {
+  return { 
+    userId: state.user.userId 
+  }
 }
-let AddReviewForm = connect(mapStateToProps)(UnconnectedAddReviewForm)
-export default AddReviewForm
+
+export default connect(mapStateToProps)(AddReviewForm)

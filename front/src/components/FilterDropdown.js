@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import '../css/FilterDropdown.css'
 
-class UnconnectedFilterDropdown extends Component {
+class FilterDropdown extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -17,31 +17,32 @@ class UnconnectedFilterDropdown extends Component {
       xPos: this.props.xPos,
       yPos: this.props.yPos
     }
-    this.RenderMenu = this.RenderMenu.bind(this)
-    this.handleInputSearch = this.handleInputSearch.bind(this)
-    this.handleCheck = this.handleCheck.bind(this)
+    // this.RenderMenu = this.RenderMenu.bind(this)
+    // this.handleInputSearch = this.handleInputSearch.bind(this)
+    // this.handleCheck = this.handleCheck.bind(this)
     // this.openMenu = this.openMenu.bind(this);
-    this.closeMenu = this.closeMenu.bind(this)
-    this.handleAddToList = this.handleAddToList.bind(this)
+    // this.closeMenu = this.closeMenu.bind(this)
+    // this.handleAddToList = this.handleAddToList.bind(this)
   }
 
   componentDidMount () {
     console.log('Filter xPos', this.state.xPos)
     console.log('Filter yPos', this.state.yPos)
   }
+  
   // openMenu(evt) {
   //   this.setState({ showMenu: true, xPos: evt.clientX, yPos: evt.clientY });
   // }
-  closeMenu () {
+  closeMenu = () => {
     this.setState({ showMenu: false })
     this.props.parent.setState({ addingToList: false })
   }
 
-  handleInputSearch (evt) {
+  handleInputSearch = (evt) => {
     this.setState({ inputSearch: evt.target.value })
   }
 
-  handleCheck (evt) {
+  handleCheck = (evt) => {
     console.log('evt', evt)
     let listId = evt.currentTarget.name
     if (evt.currentTarget.checked) {
@@ -59,11 +60,11 @@ class UnconnectedFilterDropdown extends Component {
       this.setState({ checkedListsIds: arr })
     }
   }
+
   // add movie to each of the following checked lists //TODO
   // reqbody={lists:[listId1,listId2,listId3,list4],movieObject:movieObject]
-  handleAddToList () {
+  handleAddToList = () => {
     console.log('added movie to lists')
-    // let that = this
     axios({
       method: 'put',
       url: '/api/lists/add-movie/',
@@ -76,8 +77,9 @@ class UnconnectedFilterDropdown extends Component {
       this.closeMenu()
     })
   }
+
   // renders menu with filter
-  RenderMenu () {
+  RenderMenu = () => {
     if (this.props.loggedIn === false) {
       this.props.parent.setState({
         message:
@@ -190,10 +192,11 @@ class UnconnectedFilterDropdown extends Component {
   }
 }
 
-let mapStateToProps = function (state) {
-  return { loggedIn: state.user.loggedIn, lists: state.lists.lists }
+let mapStateToProps = (state) => {
+  return { 
+    loggedIn: state.user.loggedIn, 
+    lists: state.lists.lists 
+  }
 }
 
-let FilterDropdown = connect(mapStateToProps)(UnconnectedFilterDropdown)
-
-export default FilterDropdown
+export default connect(mapStateToProps)(FilterDropdown)

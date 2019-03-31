@@ -6,22 +6,20 @@ import { withRouter } from 'react-router'
 import '../css/MakeList.css'
 import { connect } from 'react-redux'
 import axios from 'axios'
-// import App from '../App.js'
-// import Modal from 'react-modal'
 
-class UnconnectedMyReviews extends Component {
-  constructor(props) {
+class MyReviews extends Component {
+  constructor (props) {
     super(props)
     this.state = { reviews: [] }
   }
-  componentDidMount = () => {
-    // let that = this
+
+  componentDidMount () {
     console.log('Fetching all of users reviews')
 
     this.update()
   }
-  update(){
-    let that=this
+
+  update = () => {
     axios({
       method: 'get',
       url: '/api/reviews/',
@@ -43,20 +41,20 @@ class UnconnectedMyReviews extends Component {
             console.log('elem with object added', elem)
           })
 
-          .catch(() => console.log('caught'))
+          .catch(err => console.log('caught',err))
         promises.push(promise)
       })
 
       Promise.all(promises).then(() => {
-        that.setState({ reviews: reviews })
+        this.setState({ reviews: reviews })
       })
       //   let updateReview=setTimeout(()=>{
-      //     that.setState({reviews:reviews})
+      //     this.setState({reviews:reviews})
       //       console.log("reviews set",reviews)},1000)
     })
   }
+
   deleteReview = reviewId => {
-    let that=this
     console.log('deleting review')
     // let reqBody={reviewId:reviewId}
     let reqBody = {reviewId:reviewId}
@@ -69,11 +67,9 @@ class UnconnectedMyReviews extends Component {
     })
       .then(() => {
         console.log('deleted review', reviewId)
-        that.update()
+        this.update()
       })
-      .catch(e => {
-        console.log('error', e.response)
-      })
+      .catch(err => console.log('error', err.response))
   }
 
   renderReviews = () => {
@@ -100,26 +96,24 @@ class UnconnectedMyReviews extends Component {
     return this.state.reviews.map(elemToDOM)
   }
 
-  render() {
+  render () {
     if (this.props.loggedIn === false) {
       return <Redirect to={'./loginalert'} />
     }
 
     return (
-      <div className="container-fluid main-container-my-reviews">
-        <div className="container pt-4">
-          <h2 className="text-center mb-5 mt-5">My Reviews</h2>
-          <div className="my-review-holder mt-2"> {this.renderReviews()}</div>
+      <div className='container-fluid main-container-my-reviews'>
+        <div className='container pt-4'>
+          <h2 className='text-center mb-5 mt-5'>My Reviews</h2>
+          <div className='my-review-holder mt-2'> {this.renderReviews()}</div>
         </div>
       </div>
     )
   }
 }
 
-let mapStateToProps = function(state) {
+let mapStateToProps = (state) => {
   return { loggedIn: state.user.loggedIn }
 }
 
-let MyReviews = connect(mapStateToProps)(withRouter(UnconnectedMyReviews))
-
-export default MyReviews
+export default connect(mapStateToProps)(withRouter(MyReviews))

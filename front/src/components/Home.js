@@ -8,7 +8,7 @@ import BannerOne from '../media/images/main-poster-pikachu.jpg'
 import BannerTwo from '../media/images/main-poster-shazam.jpg'
 import BannerThree from '../media/images/main-poster-dumbo.jpg'
 
-class UnconnectedHome extends Component {
+class Home extends Component {
   render () {
     return (
       <div className='bg-light'>
@@ -115,10 +115,8 @@ class UnconnectedHome extends Component {
   }
 }
 
-let mapStateToProps = function (state) {
+let mapStateToProps = (state) => {
   return { loggedIn: state.user.loggedIn }
 }
 
-let Home = connect(mapStateToProps)(withRouter(UnconnectedHome))
-
-export default Home
+export default connect(mapStateToProps)(withRouter(Home))

@@ -4,16 +4,16 @@ import '../css/style.css'
 import '../css/MakeList.css'
 import axios from 'axios'
 
-class MoviesBody extends Component {
+class EditListSearchMovie extends Component {
   constructor (props) {
     super(props)
-    this.state = { inputMovie: '', searchResults: [] }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleInputMovie = this.handleInputMovie.bind(this)
-    this.getMovies = this.getMovies.bind(this)
-    this.addMovie = this.addMovie.bind(this)
+    this.state = {
+      inputMovie: '',
+      searchResults: []
+    }
   }
-  getMovies (search) {
+
+  getMovies = search => {
     axios(
       'https://api.themoviedb.org/3/search/movie?api_key=98325a9d3ed3ec225e41ccc4d360c817&language=en-US&query=' +
         search
@@ -22,7 +22,8 @@ class MoviesBody extends Component {
       this.setState({ searchResults: response.data.results })
     })
   }
-  displaySearchResults () {
+
+  displaySearchResults = () => {
     console.log('displaying movie search results')
     let elemToDOM = elem => {
       if (elem.poster_path !== null) {
@@ -52,23 +53,26 @@ class MoviesBody extends Component {
     let mappedResults = this.state.searchResults.map(elemToDOM)
     return mappedResults
   }
-  handleInputMovie (evt) {
+
+  handleInputMovie = evt => {
     this.setState({ inputMovie: evt.target.value })
   }
-  handleSubmit (evt) {
+
+  handleSubmit = evt => {
     evt.preventDefault()
     let search = this.state.inputMovie
     console.log('search', search)
     this.getMovies(search)
   }
 
-  addMovie (movie) {
+  addMovie = movie => {
     console.log('added movie to list')
     console.log('movie', movie)
     console.log('movie added', movie.original_title)
     let newMovieArr = this.props.parent.state.chosenMovies.concat(movie)
     this.props.parent.setState({ chosenMovies: newMovieArr })
   }
+
   render () {
     let searchResultsStyle
     console.log('rendering moviesbody')
@@ -91,6 +95,7 @@ class MoviesBody extends Component {
         overflowX: 'hidden'
       }
     }
+
     return (
       <div style={searchResultsStyle} className=''>
         <form onSubmit={this.handleSubmit}>
@@ -108,4 +113,4 @@ class MoviesBody extends Component {
   }
 }
 
-export default MoviesBody
+export default EditListSearchMovie

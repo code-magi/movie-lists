@@ -8,6 +8,7 @@ class Test extends Component {
       tests: []
     }
   }
+
   async componentDidMount () {
     let data = await (await axios.get('/tests')).data
     if (data.success) {

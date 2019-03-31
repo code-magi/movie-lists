@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 import '../css/MakeList.css'
 import { connect } from 'react-redux'
 
-class UnconnectedLoginAlert extends Component {
+class LoginAlert extends Component {
   render () {
     if (this.props.loggedIn) {
       this.props.history.push('/')
@@ -17,9 +17,8 @@ class UnconnectedLoginAlert extends Component {
   }
 }
 
-let mapStateToProps = function (state) {
+let mapStateToProps = (state) => {
   return { loggedIn: state.user.loggedIn }
 }
 
-let LoginAlert = connect(mapStateToProps)(withRouter(UnconnectedLoginAlert))
-export default LoginAlert
+export default connect(mapStateToProps)(withRouter(LoginAlert))

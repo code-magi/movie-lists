@@ -8,8 +8,12 @@ import AddReviewForm from './AddReviewForm'
 class Movie extends Component {
   constructor(props) {
     super(props)
-    this.state = { movieId: this.props.movieId, movieData: [] }
+    this.state = { 
+      movieId: this.props.movieId, 
+      movieData: [] 
+    }
   }
+
   componentDidMount() {
     console.log('component did mount for Movie Component')
     console.log('props', this.props)
@@ -27,6 +31,7 @@ class Movie extends Component {
 
     // this.getReviews();
   }
+
   update = () => {
     console.log('Updating state of movie component')
     console.log('props', this.props)
@@ -116,12 +121,12 @@ class Movie extends Component {
       </div>
     )
   }
-  displayReviews() {
+
+  displayReviews =() => {
     // let getReviews = () => {}
   }
 
   // getReviews = () => {
-  //   let that = this;
   //   console.log("fetched get reviews");
   //   axios({
   //     method: "post",
@@ -132,13 +137,13 @@ class Movie extends Component {
   //     let allReviews = response.data.sortedRankedReviews;
   //     console.log("allReviews", allReviews);
   //     let filterMovie = elem => {
-  //       if (elem.movieId === that.state.movieId) {
+  //       if (elem.movieId === this.state.movieId) {
   //         return true;
   //       }
   //     };
   //     let relaventReviews = allReviews.filter(filterMovie);
   //     console.log("relaventReviews", relaventReviews);
-  //     that.setState({ reviews: relaventReviews });
+  //     this.setState({ reviews: relaventReviews });
   //   });
   // };
   // renderReviews = () => {

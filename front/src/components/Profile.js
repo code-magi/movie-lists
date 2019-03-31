@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 
 import Spinner from './Spinner'
+
 class Profile extends Component {
   async componentDidMount () {
     try {

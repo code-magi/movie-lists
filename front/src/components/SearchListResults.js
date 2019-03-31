@@ -10,10 +10,10 @@ class SearchListResults extends Component {
   constructor (props) {
     super(props)
     this.state = { searchQuery: '', results: [] }
-    this.startSearch = this.startSearch.bind(this)
     this.displayTags = this.displayTags.bind(this)
   }
-  startSearch () {
+
+  startSearch = () => {
     let that = this
     console.log('getting item id')
     let path = window.location.pathname
@@ -43,7 +43,8 @@ class SearchListResults extends Component {
       }
     })
   }
-  displayTags (tagList) {
+
+  displayTags = (tagList) => {
     // let that = this
     return tagList.split(' ^^ ').map((elem, index) => {
       return (
@@ -56,7 +57,7 @@ class SearchListResults extends Component {
     })
   }
 
-  displayResults () {
+  displayResults = () => {
     // results is an array of lists
     console.log('displaying results')
     let resultsToDom = elem => {

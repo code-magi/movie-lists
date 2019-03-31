@@ -8,14 +8,15 @@ import $ from 'jquery'
 import SearchList from './SearchBarList'
 import Movielogo from '../media/images/movielists_logo.svg'
 
-class UnconnectedNavbar extends Component {
+class Navbar extends Component {
   constructor (props) {
     super(props)
     this.state = {
       moviesSearch: ''
     }
   }
-  CheckIfLoggedIn () {
+
+  CheckIfLoggedIn  = () => {
     if (!this.props.loggedIn) {
       return (
         <React.Fragment>
@@ -118,7 +119,7 @@ class UnconnectedNavbar extends Component {
   //   // return imdbId
   // }
 
-  getMovies (searchText) {
+  getMovies = (searchText) => {
     if (searchText === '') {
       this.props.history.push('/')
     } else {
@@ -309,12 +310,11 @@ class UnconnectedNavbar extends Component {
   }
 }
 
-let mapStateToProps = function (state) {
+let mapStateToProps = (state) => {
   return {
     loggedIn: state.user.loggedIn,
     user: state.user.user,
     avatar: state.user.avatar
   }
 }
-let Navbar = connect(mapStateToProps)(withRouter(UnconnectedNavbar))
-export default Navbar
+export default connect(mapStateToProps)(withRouter(Navbar))

@@ -13,7 +13,8 @@ class MoviesBody extends Component {
     this.getMovies = this.getMovies.bind(this)
     this.addMovie = this.addMovie.bind(this)
   }
-  getMovies (search) {
+
+  getMovies = (search) => {
     axios(
       'https://api.themoviedb.org/3/search/movie?api_key=98325a9d3ed3ec225e41ccc4d360c817&language=en-US&query=' +
         search
@@ -22,7 +23,8 @@ class MoviesBody extends Component {
       this.setState({ searchResults: response.data.results })
     })
   }
-  displaySearchResults () {
+
+  displaySearchResults = () => {
     console.log('displaying movie search results')
     let elemToDOM = elem => {
       if (elem.poster_path !== null) {
@@ -52,23 +54,26 @@ class MoviesBody extends Component {
     let mappedResults = this.state.searchResults.map(elemToDOM)
     return mappedResults
   }
-  handleInputMovie (evt) {
+
+  handleInputMovie = (evt) => {
     this.setState({ inputMovie: evt.target.value })
   }
-  handleSubmit (evt) {
+
+  handleSubmit = (evt) => {
     evt.preventDefault()
     let search = this.state.inputMovie
     console.log('search', search)
     this.getMovies(search)
   }
 
-  addMovie (movie) {
+  addMovie = (movie) => {
     console.log('added movie to list')
     console.log('movie', movie)
     console.log('movie added', movie.original_title)
     let newMovieArr = this.props.parent.state.chosenMovies.concat(movie)
     this.props.parent.setState({ chosenMovies: newMovieArr })
   }
+  
   render () {
     let searchResultsStyle
     console.log('rendering moviesbody')

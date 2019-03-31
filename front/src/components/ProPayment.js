@@ -2,7 +2,7 @@ import React from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
 
-export default class ProPayment extends React.Component {
+class ProPayment extends React.Component {
   onToken = async token => {
     console.log('token ', token)
 
@@ -38,9 +38,7 @@ export default class ProPayment extends React.Component {
       // Can't process the card - just msg: Check your card data
       // In real app back could return more specific info delivered by Stripe. Like, not enough money on the account.
     }
-    
     }
-  // ...
 
   render() {
     return (
@@ -61,3 +59,5 @@ export default class ProPayment extends React.Component {
     )
   }
 }
+
+export default ProPayment

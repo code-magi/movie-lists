@@ -4,10 +4,10 @@ import { Redirect } from 'react-router-dom'
 // import "../css/LoginSignup.css";
 import { connect } from 'react-redux'
 import axios from 'axios'
-import App from '../App.js'
 import Modal from 'react-modal'
 
-Modal.setAppElement(App)
+// Previously was (App) but should be a react app DOM element under react-modal docs
+Modal.setAppElement('#root')
 
 const customStyles = {
   content: {
@@ -25,7 +25,7 @@ const customStyles = {
   }
 }
 
-class UnconnectedSignup extends Component {
+class Signup extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -45,28 +45,31 @@ class UnconnectedSignup extends Component {
     this.afterOpenModal = this.afterOpenModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
   }
-  handleInputEmail (evt) {
+
+  handleInputEmail = (evt) => {
     this.setState({ inputEmail: evt.currentTarget.value })
   }
-  handleInputUsername (evt) {
+
+  handleInputUsername = (evt) => {
     this.setState({ inputUsername: evt.currentTarget.value })
   }
-  handleInputPassword (evt) {
+
+  handleInputPassword = (evt) => {
     this.setState({ inputPassword: evt.currentTarget.value })
   }
-  handleInputConfirmPassword (evt) {
+
+  handleInputConfirmPassword = (evt) => {
     this.setState({ inputConfirmPassword: evt.currentTarget.value })
   }
 
-  handleSubmit (e) {
-    // let that = this
+  handleSubmit = (e) => {
     e.preventDefault()
     if (this.state.inputConfirmPassword !== this.state.inputPassword) {
       this.setState({ modalMessage: 'Password fields do not match.' })
       return
     }
     // make fetch request here and dispatch action if it returns positive
-    // Recommend that backend also expects a password and user
+    // Recommend backend also expects a password and user
     let reqBody = {
       email: this.state.inputEmail,
       password: this.state.inputPassword,
@@ -112,15 +115,15 @@ class UnconnectedSignup extends Component {
     //
   }
 
-  openModal () {
+  openModal = () => {
     this.setState({ modalIsOpen: true })
   }
 
-  afterOpenModal () {
+  afterOpenModal = () => {
     // this.subtitle.style.color="#f00"
   }
 
-  closeModal () {
+  closeModal = () => {
     this.setState({ modalIsOpen: false })
   }
 
@@ -188,6 +191,4 @@ let mapStateToProps = function (state) {
   return { loggedIn: state.user.loggedIn }
 }
 
-let Signup = connect(mapStateToProps)(UnconnectedSignup)
-
-export default Signup
+export default connect(mapStateToProps)(Signup)

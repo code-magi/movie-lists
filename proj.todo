@@ -1,18 +1,39 @@
 Bugs:
-  ✔ Reviews does NOT show up. Toy Story @done(19-03-30 22:18)
-  ☐ Login doesn't show a notice when password is wrong
-  ☐ Make lists empty after logout. Lists[] was in root of Redux Store in old version Redux. Now we have lists{}. After logout we need dispatch that action to listsReducer
+  Front:
+    ✔ Reviews does NOT show up. Toy Story @done(19-03-30 22:18)
+    ☐ Login doesn't show a notice when password is wrong
+    ☐ Make lists empty after logout. Lists[] was in root of Redux Store in old version Redux. Now we have lists{}. After logout we need dispatch that action to listsReducer
+  Back:
 v2.0:
 react.movielists.ca:
-  ✔ Clean up redux implementation. Store.Store @done(19-03-30 19:18)
-  ✔ Implement several reducers. userReducer, listsReducer, profileReducer @done(19-03-30 21:35)
-  ✔ Cleanup unused imports and variables @done(19-03-30 21:35)
-  ☐ Bring thunk in actions.
-  ☐ Put fetch in the action.
-  ☐ Implement React Hooks instead of classes
-  ☐ Finish profile fields
-  ☐ Design user profile @Jonathan
-  ✔ Change icon @done(19-03-29 21:31)
-  ☐ Exchange .bind() to arrow func
+  Front:
+    ✔ Clean up redux implementation. Store.Store @done(19-03-30 19:18)
+    ✔ Implement several reducers. userReducer, listsReducer, profileReducer @done(19-03-30 21:35)
+    ✔ Cleanup unused imports and variables @done(19-03-30 21:35)
+    ☐ Bring thunk in actions
+    ☐ Change action types to const
+    ☐ Put fetch in the action
+    ☐ Finish profile fields
+    ☐ Bring server-side fields verification to Front with style
+    ☐ Design user profile page @Jonathan
+    ✔ Change icon @done(19-03-29 21:31)
+    ✔ Exchange .bind() to arrow func @done(19-03-31 18:07)
+    ✔ Change app root at Singup react-module(like it is in Login) @done(19-03-31 18:07)
+    ✔ Decompose multi-components files into several small components @done(19-03-31 18:07)
+    ✔ Remove that = this @done(19-03-31 18:07)
+    ✔ Format with '' and no semicolon at the end @done(19-03-31 18:07)
+v2.1:
+  Front:
+    ☐ Implement React Hooks instead of classes
+v2.2:
+  Front:
+    ☐ Bring TypeScript into React proj
+    ☐ Rewrite basic components in TS
+v2.3:
+  Back:
+    ☐ Bring GraphQL
+v2.4:
+  Front:
+    ☐ Exchange cookies for JWT
 vue.movielists.ca:
 angular.movielists.ca:

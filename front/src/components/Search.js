@@ -8,14 +8,15 @@ import FilterDropdown from './FilterDropdown'
 class Search extends Component {
   constructor() {
     super()
-    this.state = { addingToList: false, message: '' }
-    this.renderFilterDropdown = this.renderFilterDropdown.bind(this)
+    this.state = { 
+      addingToList: false, 
+      message: '' 
+    }
   }
 
   componentDidMount() {
     this.checkLocalStorage()
     
-    let that = this
     let moviesCheck = document.getElementById('movies')
     moviesCheck.addEventListener('click', ({ target }) => {
       if (target.matches('#see-more-large')) {
@@ -151,12 +152,13 @@ class Search extends Component {
             console.log('response', response)
             let movie = response.data
             console.log('movie', movie)
-            that.setState({ movie: movie, addingToList: true })
+            this.setState({ movie: movie, addingToList: true })
           })
       }
     })
   }
-  renderFilterDropdown() {
+
+  renderFilterDropdown = () => {
     if (this.state.addingToList) {
       return (
         <FilterDropdown
@@ -168,7 +170,8 @@ class Search extends Component {
       )
     }
   }
-  displayMessage() {
+
+  displayMessage = () => {
     if (this.state.message) {
       return (
         <div

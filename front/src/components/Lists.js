@@ -11,15 +11,10 @@ import { withRouter } from 'react-router'
 // import { EditLists } from './EditList'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
 
-class UnconnectedLists extends Component {
+class Lists extends Component {
   constructor(props) {
     super(props)
     this.state = { uniqueTags: [] }
-    this.displayLists = this.displayLists.bind(this)
-    this.deleteList = this.deleteList.bind(this)
-    this.editList = this.editList.bind(this)
-    this.setDisplayedTags = this.setDisplayedTags.bind(this)
-    this.displayTags = this.displayTags.bind(this)
   }
 
   componentDidMount() {
@@ -38,8 +33,7 @@ class UnconnectedLists extends Component {
     })
   }
 
-  fetchList() {
-    let that = this
+  fetchList = () => {
     console.log('fetched to get list')
     console.log('url: /api/lists')
     axios({
@@ -51,17 +45,16 @@ class UnconnectedLists extends Component {
       let responseLists = response.data.lists
       console.log('responseLists', responseLists)
       this.props.dispatch({ type: 'getLists', payload: responseLists })
-      that.setDisplayedTags()
+      this.setDisplayedTags()
     })
   }
 
-  editList(list) {
+  editList = (list) => {
     this.props.dispatch({ type: 'editList', payload: list })
     this.props.history.push('./lists/editlist')
   }
 
-  deleteList(listId) {
-    let that = this
+  deleteList = (listId) => {
     console.log('listId', listId)
     console.log('fetch request /api/lists/delete')
     axios({
@@ -72,12 +65,11 @@ class UnconnectedLists extends Component {
     }).then(response => {
       console.log('response', response)
       console.log('response.message', response.message)
-      that.fetchList()
+      this.fetchList()
     })
   }
 
-  displayLists() {
-    let that = this
+  displayLists = () => {
     try {
       let listsArr = this.props.lists
       console.log('listsArr', listsArr)
@@ -104,13 +96,13 @@ class UnconnectedLists extends Component {
                 name="edit"
                 className="far fa-edit MouseOver ml-1 mr-1 icon-lists"
                 onClick={() => {
-                  that.editList(elem)
+                  this.editList(elem)
                 }}
               />
               <span
                 name="delete"
                 className="fas fa-trash-alt MouseOver ml-1 mr-1 icon-lists"
-                onClick={() => that.deleteList(elem._id)}
+                onClick={() => this.deleteList(elem._id)}
               />
             </span>
           </li>
@@ -130,7 +122,7 @@ class UnconnectedLists extends Component {
     } catch {}
   }
 
-  displayTags() {
+  displayTags = () => {
     let renderDomElement = elem => {
       return (
         <Link to={'./searchtags/' + elem}>
@@ -142,7 +134,8 @@ class UnconnectedLists extends Component {
     }
     return this.state.uniqueTags.map(renderDomElement)
   }
-  setDisplayedTags() {
+
+  setDisplayedTags = () => {
     if (true) {
       console.log('displaying all tags in the lists.....')
       let getListTagsArr = list => {
@@ -196,9 +189,10 @@ class UnconnectedLists extends Component {
   }
 }
 
-let mapStateToProps = function(state) {
-  return { lists: state.lists.lists, loggedIn: state.user.loggedIn }
+let mapStateToProps = (state) => {
+  return { 
+    lists: state.lists.lists, 
+    loggedIn: state.user.loggedIn }
 }
-let Lists = connect(mapStateToProps)(withRouter(UnconnectedLists))
 
-export default Lists
+export default connect(mapStateToProps)(withRouter(Lists))

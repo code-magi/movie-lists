@@ -5,30 +5,30 @@ import axios from 'axios'
 // import Movie from './Movie'
 
 class MovieReviews extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
-    this.state = { 
-      movieId: this.props.movieId, 
-      reviews: [] 
+    this.state = {
+      movieId: this.props.movieId,
+      reviews: []
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     console.log('component did mount movie reviews---------------')
-
     this.getReviews()
   }
+
   // componentWillReceiveProps(){
   //     this.getReviews()
   // }
-  componentWillUpdate(prevProps, prevState) {
+
+  componentWillUpdate (prevProps, prevState) {
     if (prevState.reviews === this.state.reviews) {
       this.getReviews()
     }
   }
 
   getReviews = () => {
-    // let that = this
     console.log('fetched get reviews')
     axios({
       method: 'post',
@@ -41,34 +41,34 @@ class MovieReviews extends Component {
       console.log('allReviews', allReviews)
       // let filterMovie = elem => {
       //   //   console.log('elem', elem)
-      //     if (elem.movieId === that.state.movieId) {
-      //       return true;
+      //     if (elem.movieId === this.state.movieId) {
+      //       return true
       //     }
       //   }
       let relevantReviews = allReviews.filter(elem => {
-        return elem.movieId === this.state.movieId 
+        return elem.movieId === this.state.movieId
       })
-      
-      console.log("relevantReviews", relevantReviews);
-      this.setState({ reviews: relevantReviews });
+
+      console.log("relevantReviews", relevantReviews)
+      this.setState({ reviews: relevantReviews })
       })
     }
 
-    render() {
-        console.log("render MovieReviews ---------------------")
-      let createDomElements = elem => {
-        return (
-          <li key={elem.id}>
-            <div>User: {elem.user.username}</div>
-            <div>Review: {elem.reviewText}</div>
-          </li>
-        );
-      }
-    
+  render () {
+    console.log('render MovieReviews ---------------------')
+    let createDomElements = elem => {
+      return (
+        <li key={elem.id}>
+          <div>User: {elem.user.username}</div>
+          <div>Review: {elem.reviewText}</div>
+        </li>
+      )
+    }
+
     return (
-      <div className="container all-reviews-movie-container">
-        <h5 className="title-all-review-movie">Reviews</h5>
-        <ol className="list-holder-all-reviews">
+      <div className='container all-reviews-movie-container'>
+        <h5 className='title-all-review-movie'>Reviews</h5>
+        <ol className='list-holder-all-reviews'>
           {this.state.reviews.map(createDomElements)}
         </ol>
       </div>

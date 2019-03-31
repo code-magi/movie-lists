@@ -5,17 +5,17 @@ import { withRouter } from 'react-router'
 import '../css/MakeList.css'
 import { connect } from 'react-redux'
 
-class UnconnectedSearchList extends Component {
+class SearchList extends Component {
   constructor (props) {
     super(props)
     this.state = { inputSearch: '' }
-    this.handleInputSearch = this.handleInputSearch.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
-  handleInputSearch (evt) {
+
+  handleInputSearch = (evt) => {
     this.setState({ inputSearch: evt.currentTarget.value })
   }
-  handleSubmit (evt) {
+
+  handleSubmit = (evt) => {
     console.log('submitted searchList form')
     evt.preventDefault()
 
@@ -47,6 +47,4 @@ class UnconnectedSearchList extends Component {
 //     return {}
 // }
 
-let SearchList = connect()(withRouter(UnconnectedSearchList))
-
-export default SearchList
+export default connect()(withRouter(SearchList))

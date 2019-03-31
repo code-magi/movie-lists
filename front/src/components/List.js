@@ -9,16 +9,13 @@ import axios from 'axios'
 import { withRouter } from 'react-router'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
 
-class UnconnnectedList extends Component {
-  constructor(props) {
+class List extends Component {
+  constructor (props) {
     super(props)
     this.state = { list: [] }
-    this.displayList = this.displayList.bind(this)
-    this.deleteList = this.deleteList.bind(this)
-    this.editList = this.editList.bind(this)
   }
-  componentDidMount() {
-    let that = this
+
+  componentDidMount () {
     console.log('getting item id')
     let path = window.location.pathname
     console.log('path', path)
@@ -35,7 +32,7 @@ class UnconnnectedList extends Component {
       withCredentials: 'include'
     }).then(response => {
       console.log('response', response)
-      that.setState({ list: response.data.list })
+      this.setState({ list: response.data.list })
     })
   }
   // editList(list){
@@ -43,7 +40,6 @@ class UnconnnectedList extends Component {
   //   this.props.history.push("./editlist")
   // }
   // deleteList(listId) {
-  //   let that = this
   //   console.log('listId', listId)
   //   console.log('fetch request /api/lists/delete')
   //   axios({
@@ -54,7 +50,7 @@ class UnconnnectedList extends Component {
   //   }).then(response => {
   //     console.log('response', response)
   //     console.log('response.message', response.message)
-  //     that.fetchList()
+  //     this.fetchList()
   //   })
   // }
   // fetchList() {
@@ -72,12 +68,13 @@ class UnconnnectedList extends Component {
   //     this.props.history.push("./")
   //   })
   // }
-  editList(list) {
+
+  editList = (list) => {
     this.props.dispatch({ type: 'editList', payload: list })
     this.props.history.push('./editlist')
   }
-  deleteList(listId) {
-    let that = this
+
+  deleteList = (listId) => {
     console.log('listId', listId)
     console.log('fetch request /api/lists/delete')
     axios({
@@ -88,10 +85,11 @@ class UnconnnectedList extends Component {
     }).then(response => {
       console.log('response', response)
       console.log('response.message', response.message)
-      that.fetchList()
+      this.fetchList()
     })
   }
-  fetchList() {
+
+  fetchList = () => {
     console.log('fetched to get list')
     console.log('url: /api/lists')
     axios({
@@ -107,30 +105,29 @@ class UnconnnectedList extends Component {
     })
   }
 
-  //elem is list object
-  ownerTools(elem) {
-    let that = this
+  // elem is list object
+  ownerTools = (elem) => {
     if (elem.userId === this.props.userId) {
       return (
         <React.Fragment>
           <span
-            name="edit"
-            className="far fa-edit ml-1 mr-1 icon-list "
+            name='edit'
+            className='far fa-edit ml-1 mr-1 icon-list '
             onClick={() => {
-              that.editList(elem)
+              this.editList(elem)
             }}
           />
           <span
-            name="delete"
-            className="fas fa-trash-alt ml-1 mr-1 icon-list"
-            onClick={() => that.deleteList(elem._id)}
+            name='delete'
+            className='fas fa-trash-alt ml-1 mr-1 icon-list'
+            onClick={() => this.deleteList(elem._id)}
           />
         </React.Fragment>
       )
     }
   }
 
-  displayList() {
+  displayList = () => {
     try {
       console.log('movie array', this.state.list.movieArr)
       if (
@@ -140,11 +137,11 @@ class UnconnnectedList extends Component {
         return <h4>There is no list to be displayed</h4>
       } else {
         return (
-          <div className="container-fluid main-container-list">
-            <div className="container">
-              <div className="title-social-list">
+          <div className='container-fluid main-container-list'>
+            <div className='container'>
+              <div className='title-social-list'>
                 <h3>List: {this.state.list.name}</h3>
-                <span className="list-icons">
+                <span className='list-icons'>
                   <FacebookShareButton
                     url={window.location.href}
                     className={'fab fa-facebook ml-1 mr-1 icon-list'}
@@ -156,11 +153,11 @@ class UnconnnectedList extends Component {
                   {this.ownerTools(this.state.list)}
                 </span>
               </div>
-              <ol className="single-list-holder">
-                {this.state.list.movieArr.map(function(elem) {
+              <ol className='single-list-holder'>
+                {this.state.list.movieArr.map(function (elem) {
                   return (
                     <div>
-                      <li className="list-item">
+                      <li className='list-item'>
                         <img
                           src={
                             'https://image.tmdb.org/t/p/w500' + elem.poster_path
@@ -169,7 +166,7 @@ class UnconnnectedList extends Component {
                           alt=''
                         />
                         <Link to={'/movie/' + elem.id}>
-                          <span className="title-list">
+                          <span className='title-list'>
                             {elem.original_title}
                           </span>
                         </Link>
@@ -188,7 +185,7 @@ class UnconnnectedList extends Component {
               {this.state.list.movieArr.map(function(elem) {
                 return (
                 <div>
-                  
+
                 <Link to={"/movie/"+elem.id}><li style={{margin:"10px"}}><img src={"https://image.tmdb.org/t/p/w500" + elem.poster_path} style={{maxHeight:"50px"}}></img>{elem.original_title}</li></Link>
                 </div>
                 )
@@ -197,19 +194,17 @@ class UnconnnectedList extends Component {
           </div>
         )
       }
-    } catch {}
+    } catch (err) { console.log('err from List', err) }
   }
-  render() {
+  render () {
     console.log('rendered component list for id', this.listId)
     console.log('ListId', this.props.listId)
     return <div>{this.displayList()}</div>
   }
 }
 
-let mapStateToProps = function(state) {
+let mapStateToProps = (state) => {
   return { userId: state.user.userId }
 }
 
-let List = connect(mapStateToProps)(withRouter(UnconnnectedList))
-
-export default List
+export default connect(mapStateToProps)(withRouter(List))

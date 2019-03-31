@@ -8,6 +8,9 @@ import axios from 'axios'
 import Modal from 'react-modal'
 // import { BACKEND_DOMAIN } from '../Global'
 
+// Previously was (App) but should be a react app DOM element under react-modal docs
+Modal.setAppElement('#root')
+
 const customStyles = {
   content: {
     top: '50%',
@@ -24,10 +27,7 @@ const customStyles = {
   }
 }
 
-// Previously was (App) but should be a react app DOM element
-Modal.setAppElement('#root')
-
-class UnconnectedLogin extends Component {
+class Login extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -36,23 +36,16 @@ class UnconnectedLogin extends Component {
       modalIsOpen: true,
       modalMessage: ''
     }
-    this.handleInputPassword = this.handleInputPassword.bind(this)
-    this.handleInputEmail = this.handleInputEmail.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.openModal = this.openModal.bind(this)
-    this.afterOpenModal = this.afterOpenModal.bind(this)
-    this.closeModal = this.closeModal.bind(this)
   }
 
-  handleInputEmail (evt) {
+  handleInputEmail = (evt) => {
     this.setState({ inputEmail: evt.currentTarget.value })
   }
-  handleInputPassword (evt) {
+  handleInputPassword = (evt) => {
     this.setState({ inputPassword: evt.currentTarget.value })
   }
 
-  handleSubmit (e) {
-    // let that = this
+  handleSubmit = (e) => {
     e.preventDefault()
     let reqBody = {
       email: this.state.inputEmail,
@@ -103,15 +96,15 @@ class UnconnectedLogin extends Component {
       })
   }
 
-  openModal () {
+  openModal = () => {
     this.setState({ modalIsOpen: true })
   }
 
-  afterOpenModal () {
+  afterOpenModal = () => {
     // this.subtitle.style.color="#f00"
   }
 
-  closeModal () {
+  closeModal = () => {
     this.setState({ modalIsOpen: false })
   }
 
@@ -261,10 +254,8 @@ class UnconnectedLogin extends Component {
 //   }
 // }
 
-let mapStateToProps = function (state) {
+let mapStateToProps = (state) => {
   return { loggedIn: state.user.loggedIn }
 }
 
-let Login = connect(mapStateToProps)(UnconnectedLogin)
-
-export default Login
+export default connect(mapStateToProps)(Login)
