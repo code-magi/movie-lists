@@ -1,11 +1,12 @@
 Bugs:
+  ✔ Reviews does NOT show up. Toy Story @done(19-03-30 22:18)
   ☐ Login doesn't show a notice when password is wrong
   ☐ Make lists empty after logout. Lists[] was in root of Redux Store in old version Redux. Now we have lists{}. After logout we need dispatch that action to listsReducer
 v2.0:
 react.movielists.ca:
   ✔ Clean up redux implementation. Store.Store @done(19-03-30 19:18)
-  ☐ Implement several reducers. userReducer, listsReducer, profileReducer
-  ☐ Cleanup unused imports and variables
+  ✔ Implement several reducers. userReducer, listsReducer, profileReducer @done(19-03-30 21:35)
+  ✔ Cleanup unused imports and variables @done(19-03-30 21:35)
   ☐ Bring thunk in actions.
   ☐ Put fetch in the action.
   ☐ Implement React Hooks instead of classes

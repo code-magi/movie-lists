@@ -85,7 +85,8 @@ class App extends Component {
   }
 
   renderMovie (routerData) {
-    let movieId = routerData.match.params.id
+    // movieId should be a number from third part API and backend data model
+    let movieId = parseInt(routerData.match.params.id)
     console.log('Movie details page rendered')
     return <Movie movieId={movieId} />
   }

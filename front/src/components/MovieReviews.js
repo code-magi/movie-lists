@@ -7,7 +7,10 @@ import axios from 'axios'
 class MovieReviews extends Component {
   constructor(props) {
     super(props)
-    this.state = { movieId: this.props.movieId, reviews: [] }
+    this.state = { 
+      movieId: this.props.movieId, 
+      reviews: [] 
+    }
   }
 
   componentDidMount() {
@@ -25,37 +28,42 @@ class MovieReviews extends Component {
   }
 
   getReviews = () => {
-    let that = this
+    // let that = this
     console.log('fetched get reviews')
     axios({
       method: 'post',
       data: { search: '' },
       url: '/api/reviews/wildsearch'
-    }).then(response => {
+    })
+    .then(response => {
       console.log('response', response)
       let allReviews = response.data.sortedRankedReviews
       console.log('allReviews', allReviews)
-      let filterMovie = elem => {
-        //   console.log('elem', elem)
-          if (elem.movieId === that.state.movieId) {
-            return true;
-          }
-        };
-        let relaventReviews = allReviews.filter(filterMovie);
-        console.log("relaventReviews", relaventReviews);
-        that.setState({ reviews: relaventReviews });
-      });
-    };
+      // let filterMovie = elem => {
+      //   //   console.log('elem', elem)
+      //     if (elem.movieId === that.state.movieId) {
+      //       return true;
+      //     }
+      //   }
+      let relevantReviews = allReviews.filter(elem => {
+        return elem.movieId === this.state.movieId 
+      })
+      
+      console.log("relevantReviews", relevantReviews);
+      this.setState({ reviews: relevantReviews });
+      })
+    }
+
     render() {
         console.log("render MovieReviews ---------------------")
       let createDomElements = elem => {
         return (
           <li>
-            <div>User:{elem.user}</div>
-            <div>Review:{elem.reviewText}</div>
+            <div>User: {elem.user.username}</div>
+            <div>Review: {elem.reviewText}</div>
           </li>
         );
-      };
+      }
     
     return (
       <div className="container all-reviews-movie-container">
