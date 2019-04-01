@@ -118,6 +118,9 @@ router.post('/signup', async (req, res) => {
 // @@ POST /api/users/login
 // @@ Public
 router.post('/login', async (req, res) => {
+  console.log('******************************************')
+  console.log('req.body for post. /users/login', req.body)
+
   const { valErrors, isValid } = validateLogin(req.body)
 
   // Check Validation
@@ -127,9 +130,6 @@ router.post('/login', async (req, res) => {
 
   errors = {}
   let user, userId
-
-  console.log('******************************************')
-  console.log('req.body for post. /users/login', req.body)
 
   let { email, password, username } = req.body
 
@@ -164,7 +164,7 @@ router.post('/login', async (req, res) => {
     return res.status(400).json({ success: false, errors })
   } else {
     // Password matched
-    console.log('User authentificated')
+    console.log('User authenticated')
 
     // Take out fields we need from user obj
     let { _id, email, avatar, username } = user
@@ -199,11 +199,11 @@ router.post('/login', async (req, res) => {
 // @@ POST /api/users/check
 // @@ Pivate
 router.post('/check', async (req, res) => {
-  errors = {}
-  let user, userId
-
   console.log('******************************************')
   console.log('req.body for post. /users/check', req.body)
+
+  errors = {}
+  let user, userId
 
   // NOTE: userId is an object includs ObjectID in mLab we see it like
   //  "_id": {

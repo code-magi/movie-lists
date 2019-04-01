@@ -4,9 +4,9 @@ import { Redirect } from 'react-router-dom'
 import '../css/LoginSignup.css'
 import { connect } from 'react-redux'
 import axios from 'axios'
-// import App from '../App.js'
 import Modal from 'react-modal'
-// import { BACKEND_DOMAIN } from '../Global'
+
+import { loginAction, clearErrorObjectsAction } from '../actions/userActions'
 
 // Previously was (App) but should be a react app DOM element under react-modal docs
 Modal.setAppElement('#root')
@@ -34,66 +34,88 @@ class Login extends Component {
       inputEmail: '',
       inputPassword: '',
       modalIsOpen: true,
-      modalMessage: ''
+      // modalMessage: Object.values(this.props.errors).join(';')
+      // modalMessage: this.props.errors.email
     }
   }
 
   handleInputEmail = (evt) => {
+    // Clear modal-message when user starts typing
+    if (Object.keys(this.props.authErrors).length !== 0 || 
+        Object.keys(this.props.valErrors).length !== 0 ) {
+      this.props.clearErrorObjectsAction()
+    }
+
     this.setState({ inputEmail: evt.currentTarget.value })
   }
+
   handleInputPassword = (evt) => {
+    // Clear modal-message when user starts typing
+    if (Object.keys(this.props.authErrors).length !== 0 || 
+        Object.keys(this.props.valErrors).length !== 0 ) {
+      this.props.clearErrorObjectsAction()
+    }
+
     this.setState({ inputPassword: evt.currentTarget.value })
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
+
     let reqBody = {
       email: this.state.inputEmail,
       password: this.state.inputPassword
     }
     console.log('reqBody', reqBody)
-    // make fetch request here and dispatch action if it returns positive
-    axios({
-      method: 'post',
-      data: reqBody,
-      url: 'api/users/login',
-      withCredentials: true
-    })
-      .then(response => {
-        console.log('res message', response.data.message)
-        console.log('response', response)
-        console.log('cookie', document.cookie)
-        if (response.data.success === true) {
-          let { email, userId, avatar } = response.data
-          // Dispatch to set loggedIn to true
-          this.props.dispatch({ type: 'login', payload: { email, userId, avatar } })
-          // add the list to the store for the particular user"
-          console.log('fetch from endpoint /lists')
-          axios({
-            method: 'get',
-            url: 'api/lists',
-            withCredentials: true
-          }).then(response => {
-            console.log('response', response)
-            let responseLists = response.data.lists
-            console.log('responseLists', responseLists)
-            this.props.dispatch({ type: 'getLists', payload: responseLists })
-          })
-        } else {
-          this.setState({
-            modalMessage: 'Wrong username or password.'
-          })
-        }
-      })
-      .catch(e => {
-        if (e) {
-          console.log('error', e.response.data.valErrors)
-          this.setState({
-            modalMessage: Object.values(e.response.data.valErrors).join(';')
-          })
-          // console.log("Error. probably username doesnt exist")
-        }
-      })
+
+    // loginAction post reqBody and dispatch user to Store in trycatch. If Errors dispatch into errors obj
+    this.props.loginAction(reqBody)
+
+    // TODO: uncomment
+    // try {
+    //   console.log('fetch from endpoint /lists')
+    //   axios({
+    //     method: 'get',
+    //     url: 'api/lists',
+    //     withCredentials: true
+    //   }).then(response => {
+    //     console.log('response', response)
+    //     let responseLists = response.data.lists
+    //     console.log('responseLists', responseLists)
+    //     this.props.dispatch({ type: 'getLists', payload: responseLists })
+    //   })
+    // } catch (error) {
+    //   console.log('error on fetching from endpoint /lists', error);
+    // }
+
+
+          //// add the list to the store for the particular user"
+          // console.log('fetch from endpoint /lists')
+          // axios({
+          //   method: 'get',
+          //   url: 'api/lists',
+          //   withCredentials: true
+          // }).then(response => {
+          //   console.log('response', response)
+          //   let responseLists = response.data.lists
+          //   console.log('responseLists', responseLists)
+          //   this.props.dispatch({ type: 'getLists', payload: responseLists })
+          // })
+        // } else {
+        //   this.setState({
+        //     modalMessage: 'Wrong username or password.'
+        //   })
+        // }
+      // }
+      // .catch(e => {
+      //   if (e) {
+      //     console.log('error', e.response.data.valErrors)
+      //     this.setState({
+      //       modalMessage: Object.values(e.response.data.valErrors).join(';')
+      //     })
+      //     // console.log("Error. probably username doesnt exist")
+      //   }
+      // })
   }
 
   openModal = () => {
@@ -110,6 +132,28 @@ class Login extends Component {
 
   render () {
     if (!this.props.loggedIn && this.state.modalIsOpen) {
+
+      // Func loop through valErrors or authError objs and create one or several divs for modal-message
+      const renderModalMessage = () => {
+
+        // Create div for modal-message
+        const createModalMessageDiv = (errors) => {
+          return Object.keys(errors).map(key => {
+            console.log('key', key)
+            return(
+              <div className='modal-message' key={key}>{errors[key]}</div>
+            )
+          })
+        }
+
+        // Check what's error exists and ca
+        const {valErrors, authErrors} = this.props
+        console.log('valErrors :', valErrors);
+        console.log('authErrors :', authErrors);
+        if(Object.keys(valErrors).length > 0) return createModalMessageDiv(valErrors)
+        if(Object.keys(authErrors).length > 0) return createModalMessageDiv(authErrors)
+      }
+
       return (
         <div>
           <Modal
@@ -138,38 +182,11 @@ class Login extends Component {
                 />
                 <div className=' ml-2 mb-2'>Password</div>
               </div>
-              <div className='modal-message'>{this.state.modalMessage}</div>
+              {renderModalMessage()}
               <input className='btn button-login-signup' type='submit' />
             </form>
           </Modal>
         </div>
-
-      // this component works. now im trying to make it into a separate component
-      // <div >
-
-      //   <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles}>
-      //   <h3>Log in </h3>
-      //   <form onSubmit={this.handleSubmit}>
-      //     <div>
-      //       <input
-      //         type="text"
-      //         onChange={this.handleInputEmail}
-      //         value={this.state.inputEmail}
-      //       />
-      //       <div>Email</div>
-      //     </div>
-      //     <div>
-      //       <input
-      //         type="text"
-      //         onChange={this.handleInputPassword}
-      //         value={this.state.inputPassword}
-      //       />
-      //       <div>Password</div>
-      //     </div>
-      //     <input type="submit" />
-      //   </form>
-      //   </Modal>
-      // </div>
       )
     } else {
       return <Redirect to='/' />
@@ -177,85 +194,12 @@ class Login extends Component {
   }
 }
 
-// class UnconnectedLogin extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = { inputEmail: "", inputPassword: "" ,modalIsOpen:false};
-//     this.handleInputPassword = this.handleInputPassword.bind(this);
-//     this.handleInputEmail = this.handleInputEmail.bind(this);
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-
-//   openModal(){
-//     this.setState({modalIsOpen:true})
-//   }
-
-//   afterOpenModal(){
-//     this.subtitle.style.color="#f00"
-//   }
-
-//   closeModal(){
-//     this.setState({modalIsOpen:false})
-//   }
-
-//   handleInputEmail(evt) {
-//     this.setState({ inputEmail: evt.currentTarget.value });
-//   }
-//   handleInputPassword(evt) {
-//     this.setState({ inputPassword: evt.currentTarget.value });
-//   }
-
-//   handleSubmit(e) {
-//     e.preventDefault();
-//     //make fetch request here and dispatch action if it returns positive
-//     axios({
-//       method: "post",
-//       data: { email: this.state.inputEmail },
-//       url: "http://localhost:5050/users/login",
-//       withCredentials: true
-//     }).then(function(response) {
-
-//         console.log("res message", response.data.message);
-//         console.log("response", response);
-//         console.log("cookie", document.cookie);
-
-//         this.props.dispatch({ type: "login" });
-
-//     }).catch(function(e){if(e.response.status===404){
-//       console.log("Error. probably username doesnt exist")
-//     }})
-
-//   }
-
-//   render() {
-//     return (
-//       <div className="bg-danger flyoutField center row  T-ALeft">
-//         <form onSubmit={this.handleSubmit}>
-//           <div className=" bg-dange field">
-//             <input
-//               type="text"
-//               onChange={this.handleInputEmail}
-//               value={this.state.inputEmail}
-//             />
-//             <div className="tSmall">Email</div>
-//           </div>
-//           <div className="field ">
-//             <input
-//               type="text"
-//               onChange={this.handleInputPassword}
-//               value={this.state.inputPassword}
-//             />
-//             <div className="tSmall">Password</div>
-//           </div>
-//           <input type="submit" />
-//         </form>
-//       </div>
-//     );
-//   }
-// }
-
 let mapStateToProps = (state) => {
-  return { loggedIn: state.user.loggedIn }
+  return { 
+    loggedIn: state.user.loggedIn,
+    authErrors: state.user.authErrors,
+    valErrors: state.user.valErrors
+  }
 }
 
-export default connect(mapStateToProps)(Login)
+export default connect(mapStateToProps, { loginAction, clearErrorObjectsAction })(Login)

@@ -10,9 +10,11 @@ react.movielists.ca:
     ✔ Clean up redux implementation. Store.Store @done(19-03-30 19:18)
     ✔ Implement several reducers. userReducer, listsReducer, profileReducer @done(19-03-30 21:35)
     ✔ Cleanup unused imports and variables @done(19-03-30 21:35)
-    ☐ Bring thunk in actions
-    ☐ Change action types to const
-    ☐ Put fetch in the action
+    ✔ Bring thunk in actions @done(19-04-01 17:21)
+    ✔ Change action types to const @done(19-04-01 17:22)
+    ✔ Put login fetch in the action @done(19-04-01 17:22)
+    ☐ Put signup fetches in the action
+    ☐ Put lists fetches in the action
     ☐ Finish profile fields
     ☐ Bring server-side fields verification to Front with style
     ☐ Design user profile page @Jonathan
@@ -25,6 +27,9 @@ react.movielists.ca:
 v2.1:
   Front:
     ☐ Implement React Hooks instead of classes
+    ☐ Login with Google button
+  Back:
+    ☐ Implement Passport Google-OAth strategy
 v2.2:
   Front:
     ☐ Bring TypeScript into React proj
