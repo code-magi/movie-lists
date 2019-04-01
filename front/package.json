@@ -18,7 +18,8 @@
     "react-scroll-up-button": "^1.6.4",
     "react-share": "^2.4.0",
     "react-stripe-checkout": "^2.6.3",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
