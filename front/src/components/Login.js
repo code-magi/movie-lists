@@ -33,7 +33,7 @@ class Login extends Component {
     this.state = {
       inputEmail: '',
       inputPassword: '',
-      modalIsOpen: true,
+      modalIsOpen: true
       // modalMessage: Object.values(this.props.errors).join(';')
       // modalMessage: this.props.errors.email
     }
@@ -69,7 +69,11 @@ class Login extends Component {
     console.log('reqBody', reqBody)
 
     // loginAction post reqBody and dispatch user to Store in trycatch. If Errors dispatch into errors obj
-    this.props.loginAction(reqBody)
+    let url = '/api/users/login'
+
+    // To avoid a problem with params order Let's pass an obj
+    let paramObj = {reqBody, url}
+    this.props.loginAction(paramObj)
 
     // TODO: uncomment
     // try {

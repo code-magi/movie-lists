@@ -1,14 +1,15 @@
 import axios from 'axios'
 import { LOGIN, VAL_ERROR, AUTH_ERROR, CLEAR_ERROR_OBJECTS, LOGOUT } from './types'
 
-export const loginAction = (reqBody) => async dispatch => {
+// Post data from login and signup. Get user data back. Dispatch user data or errors
+export const loginAction = ({ reqBody, url }) => async dispatch => {
   console.log('loginAction called')
 
   try {
     let data = await (await (axios({
       method: 'post',
       data: reqBody,
-      url: 'api/users/login',
+      url: url,
       withCredentials: true
     }))).data
     console.log('data from loginAction from userReducer', data)

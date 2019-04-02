@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import Modal from 'react-modal'
 
+import { loginAction, clearErrorObjectsAction } from '../actions/userActions'
+
 // Previously was (App) but should be a react app DOM element under react-modal docs
 Modal.setAppElement('#root')
 
@@ -33,41 +35,59 @@ class Signup extends Component {
       inputPassword: '',
       inputConfirmPassword: '',
       inputUsername: '',
-      modalIsOpen: true,
-      modalMessage: ''
+      modalIsOpen: true
+      // modalMessage: ''
     }
-    this.handleInputPassword = this.handleInputPassword.bind(this)
-    this.handleInputConfirmPassword = this.handleInputConfirmPassword.bind(this)
-    this.handleInputEmail = this.handleInputEmail.bind(this)
-    this.handleInputUsername = this.handleInputUsername.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.openModal = this.openModal.bind(this)
-    this.afterOpenModal = this.afterOpenModal.bind(this)
-    this.closeModal = this.closeModal.bind(this)
   }
 
   handleInputEmail = (evt) => {
+    // Clear modal-message when user starts typing
+    if (Object.keys(this.props.authErrors).length !== 0 || 
+        Object.keys(this.props.valErrors).length !== 0 ) {
+      this.props.clearErrorObjectsAction()
+    }
+
     this.setState({ inputEmail: evt.currentTarget.value })
   }
 
   handleInputUsername = (evt) => {
+    // Clear modal-message when user starts typing
+    if (Object.keys(this.props.authErrors).length !== 0 || 
+        Object.keys(this.props.valErrors).length !== 0 ) {
+      this.props.clearErrorObjectsAction()
+    }
+
     this.setState({ inputUsername: evt.currentTarget.value })
   }
 
   handleInputPassword = (evt) => {
+    // Clear modal-message when user starts typing
+    if (Object.keys(this.props.authErrors).length !== 0 || 
+        Object.keys(this.props.valErrors).length !== 0 ) {
+      this.props.clearErrorObjectsAction()
+    }
+
     this.setState({ inputPassword: evt.currentTarget.value })
   }
 
   handleInputConfirmPassword = (evt) => {
+    // Clear modal-message when user starts typing
+    if (Object.keys(this.props.authErrors).length !== 0 || 
+        Object.keys(this.props.valErrors).length !== 0 ) {
+      this.props.clearErrorObjectsAction()
+    }
+
     this.setState({ inputConfirmPassword: evt.currentTarget.value })
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    if (this.state.inputConfirmPassword !== this.state.inputPassword) {
-      this.setState({ modalMessage: 'Password fields do not match.' })
-      return
-    }
+    // TODO: think how to re-implement front validation
+    // if (this.state.inputConfirmPassword !== this.state.inputPassword) {
+    //   this.setState({ modalMessage: 'Password fields do not match.' })
+    //   return
+    // }
+
     // make fetch request here and dispatch action if it returns positive
     // Recommend backend also expects a password and user
     let reqBody = {
@@ -77,42 +97,51 @@ class Signup extends Component {
       username: this.state.inputUsername
     }
     console.log('reqBody', reqBody)
-    axios({
-      method: 'post',
-      data: reqBody,
-      url: '/api/users/signup',
-      withCredentials: true
-    })
-      .then(response => {
-        console.log('post signup was successful')
-        console.log('response', response)
-        let { email, userId, avatar } = response.data
-        // Dispatch to set loggedIn to true
-        this.props.dispatch({ type: 'login', payload: { email, userId, avatar } })
-        axios({
-          method: 'get',
-          url: 'api/lists',
-          withCredentials: true
-        }).then(response => {
-          console.log('response', response)
-          let responseLists = response.data.lists
-          console.log('responseLists', responseLists)
-          this.props.dispatch({ type: 'getLists', payload: responseLists })
-        })
-      })
-      .catch(e => {
-        console.log('error of this request', e.response.data.valErrors)
-        try {
-          let errorMessage = Object.values(e.response.data.valErrors).join(';')
-          console.log('errorMessage', errorMessage)
-          this.setState({
-            modalMessage: errorMessage
-          })
-        } catch (error) {
-          console.log('error', error)
-        }
-      })
-    //
+
+    // loginAction post reqBody and dispatch user to Store in trycatch. If Errors dispatch into errors obj
+    let url = '/api/users/signup'
+
+    // To avoid a problem with params order Let's pass an obj
+    let paramObj = {reqBody, url}
+    this.props.loginAction(paramObj)
+
+    // console.log('reqBody', reqBody)
+    // axios({
+    //   method: 'post',
+    //   data: reqBody,
+    //   url: '/api/users/signup',
+    //   withCredentials: true
+    // })
+    //   .then(response => {
+    //     console.log('post signup was successful')
+    //     console.log('response', response)
+    //     let { email, userId, avatar } = response.data
+    //     // Dispatch to set loggedIn to true
+    //     this.props.dispatch({ type: 'login', payload: { email, userId, avatar } })
+    //     axios({
+    //       method: 'get',
+    //       url: 'api/lists',
+    //       withCredentials: true
+    //     }).then(response => {
+    //       console.log('response', response)
+    //       let responseLists = response.data.lists
+    //       console.log('responseLists', responseLists)
+    //       this.props.dispatch({ type: 'getLists', payload: responseLists })
+    //     })
+    //   })
+    //   .catch(e => {
+    //     console.log('error of this request', e.response.data.valErrors)
+    //     try {
+    //       let errorMessage = Object.values(e.response.data.valErrors).join(';')
+    //       console.log('errorMessage', errorMessage)
+    //       this.setState({
+    //         modalMessage: errorMessage
+    //       })
+    //     } catch (error) {
+    //       console.log('error', error)
+    //     }
+    //   })
+    // //
   }
 
   openModal = () => {
@@ -129,6 +158,27 @@ class Signup extends Component {
 
   render () {
     if (!this.props.loggedIn && this.state.modalIsOpen) {
+
+       // Func loop through valErrors or authError objs and create one or several divs for modal-message
+      const renderModalMessage = () => {
+
+        // Create div for modal-message
+        const createModalMessageDiv = (errors) => {
+          return Object.keys(errors).map(key => {
+            console.log('key', key)
+            return(
+              <div className='modal-message' key={key}>{errors[key]}</div>
+            )
+          })
+        }
+
+        // Check what's error exists and ca
+        const {valErrors, authErrors} = this.props
+        console.log('valErrors :', valErrors);
+        console.log('authErrors :', authErrors);
+        if(Object.keys(valErrors).length > 0) return createModalMessageDiv(valErrors)
+        if(Object.keys(authErrors).length > 0) return createModalMessageDiv(authErrors)
+      }
       return (
         <div>
           <Modal
@@ -175,7 +225,7 @@ class Signup extends Component {
                 />
                 <div className=' ml-2 mb-2'>Confirm Password</div>
               </div>
-              <div className='modal-message'>{this.state.modalMessage}</div>
+              {renderModalMessage()}
               <input className='btn button-login-signup' type='submit' />
             </form>
           </Modal>
@@ -187,8 +237,12 @@ class Signup extends Component {
   }
 }
 
-let mapStateToProps = function (state) {
-  return { loggedIn: state.user.loggedIn }
+let mapStateToProps = (state) => {
+  return { 
+    loggedIn: state.user.loggedIn,
+    authErrors: state.user.authErrors,
+    valErrors: state.user.valErrors
+  }
 }
 
-export default connect(mapStateToProps)(Signup)
+export default connect(mapStateToProps, { loginAction, clearErrorObjectsAction })(Signup)
