@@ -5,7 +5,7 @@ import '../css/MakeList.css'
 import axios from 'axios'
 
 class EditListSearchMovie extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       inputMovie: '',
@@ -24,14 +24,14 @@ class EditListSearchMovie extends Component {
   }
 
   displaySearchResults = () => {
-    console.log('displaying movie search results')
+    // console.log('displaying movie search results')
     let elemToDOM = elem => {
       if (elem.poster_path !== null) {
         return (
-          <li name='movie' className='row' style={{ marginBottom: '10px' }}>
+          <li name="movie" className="row" style={{ marginBottom: '10px' }}>
             <span
-              name='addMovie'
-              className='addMovie fas fa-plus-circle mt-3'
+              name="addMovie"
+              className="addMovie fas fa-plus-circle mt-3"
               onClick={() => {
                 this.addMovie(elem)
               }}
@@ -39,9 +39,10 @@ class EditListSearchMovie extends Component {
             <img
               src={'https://image.tmdb.org/t/p/w500' + elem.poster_path}
               style={{ maxWidth: '30px', maxHeight: '50px' }}
-              className='mr-2' alt=''
+              className="mr-2"
+              alt=""
             />
-            <span className='search-text-make-list'>
+            <span className="search-text-make-list">
               <div>{elem.original_title}</div>
               <div style={{ fontSize: '.5em' }}>{elem.release_date}</div>
             </span>
@@ -73,9 +74,9 @@ class EditListSearchMovie extends Component {
     this.props.parent.setState({ chosenMovies: newMovieArr })
   }
 
-  render () {
+  render() {
     let searchResultsStyle
-    console.log('rendering moviesbody')
+    // console.log('rendering moviesbody')
 
     if (this.state.searchResults.length === 0) {
       searchResultsStyle = {
@@ -97,17 +98,17 @@ class EditListSearchMovie extends Component {
     }
 
     return (
-      <div style={searchResultsStyle} className=''>
+      <div style={searchResultsStyle} className="">
         <form onSubmit={this.handleSubmit}>
           <input
-            type='search'
-            placeholder=' Search Movies'
+            type="search"
+            placeholder=" Search Movies"
             onChange={this.handleInputMovie}
             value={this.state.inputMovie}
-            className='form-input-search-add'
+            className="form-input-search-add"
           />
         </form>
-        <ol name='searchResults'>{this.displaySearchResults()}</ol>
+        <ol name="searchResults">{this.displaySearchResults()}</ol>
       </div>
     )
   }

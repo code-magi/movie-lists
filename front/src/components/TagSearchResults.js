@@ -68,7 +68,7 @@ class TagSearchResults extends Component {
     // let that = this
     return tagList.split(' ^^ ').map((elem, index) => {
       return (
-        <Link to={'/searchtags/' + elem}>
+        <Link to={'/searchtags/' + elem} key={index}>
           <span className='wild-tags ml-1 mr-1'>
             {elem} <span name={index} className='fas fa-tag' />
           </span>
@@ -80,7 +80,7 @@ class TagSearchResults extends Component {
   displayLists = () => {
     let elemToDOM = elem => {
       return (
-        <li className='list-item'>
+        <li className='list-item' key={elem._id}>
           <Link to={'/lists/' + elem._id}>
             <h5 className='title-lists'>{elem.name}</h5>
           </Link>

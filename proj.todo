@@ -1,8 +1,10 @@
 Bugs:
   Front:
     ✔ Reviews does NOT show up. Toy Story @done(19-03-30 22:18)
-    ☐ Login doesn't show a notice when password is wrong
+    ✔ Login doesn't show a notice when password is wrong @done(19-04-02 16:21)
     ☐ Make lists empty after logout. Lists[] was in root of Redux Store in old version Redux. Now we have lists{}. After logout we need dispatch that action to listsReducer
+    ☐ Stripe front error
+    ☐ TagBody has form tag which is inside ListPropertiesForm form tag
   Back:
 v2.0:
 react.movielists.ca:
@@ -14,16 +16,25 @@ react.movielists.ca:
     ✔ Change action types to const @done(19-04-01 17:22)
     ✔ Put login fetch in the action @done(19-04-01 17:22)
     ✔ Put signup fetches in the action @done(19-04-01 22:14)
-    ☐ Put lists fetches in the action
-    ☐ Finish profile fields
-    ☐ Bring server-side fields verification to Front with style
+    ✔ Subsidize dispatch by getListsAction @done(19-04-03 14:37)
+    ☐ Subsidize dispatch in component by logoutUserAction @Jonathan  
+    ☐ Subsidize dispatch in component by editListAction @Jonathan  
+    ☐ Subsidize all others dispatches by ...ListsAction @Jonathan  
+    ☐ Put logout into userActions @Jonathan 
+    ☐ Create reviewsReducer and reviewsActions @Jonathan 
+    ☐ Subsidize dispatches in components by  ...reviewsActions @Jonathan 
+    ☐ Finish profile fields 
     ☐ Design user profile page @Jonathan
+    ✔ Bring server-side fields verification to Front @done(19-04-03 14:35)
     ✔ Change icon @done(19-03-29 21:31)
     ✔ Exchange .bind() to arrow func @done(19-03-31 18:07)
     ✔ Change app root at Singup react-module(like it is in Login) @done(19-03-31 18:07)
     ✔ Decompose multi-components files into several small components @done(19-03-31 18:07)
     ✔ Remove that = this @done(19-03-31 18:07)
     ✔ Format with '' and no semicolon at the end @done(19-03-31 18:07)
+  Back:
+    ☐ Create ml-test db
+    ☐ Deploy v2.0 to DO
 v2.1:
   Front:
     ☐ Implement React Hooks instead of classes

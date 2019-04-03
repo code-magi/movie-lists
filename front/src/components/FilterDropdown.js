@@ -104,7 +104,7 @@ class FilterDropdown extends Component {
         checked = true
       }
       return (
-        <li>
+        <li key={elem._id}>
           <input
             onChange={this.handleCheck}
             name={elem._id}

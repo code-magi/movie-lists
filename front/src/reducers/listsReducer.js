@@ -1,6 +1,6 @@
-
 const initialState = {
-  // lists: []
+  lists: [],
+  editList: {}
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -8,8 +8,7 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
     case 'getLists':
       console.log('action getLists used')
-      return { ...state,
-        lists: payload }
+      return { ...state, lists: payload }
 
     case 'searchList':
       console.log('action searchList used')

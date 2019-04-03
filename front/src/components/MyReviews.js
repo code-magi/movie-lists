@@ -76,7 +76,7 @@ class MyReviews extends Component {
     let elemToDOM = elem => {
       if (elem.movieObj) {
         return (
-          <div className="single-review-holder">
+          <div className="single-review-holder" key={elem._id}>
             <Link to={'/movie/' + elem.movieObj.id}>
               <div className="movie-title-my-reviews">
                 {elem.movieObj.original_title}

@@ -12,14 +12,15 @@ export const loginAction = ({ reqBody, url }) => async dispatch => {
       url: url,
       withCredentials: true
     }))).data
-    console.log('data from loginAction from userReducer', data)
+    // console.log('data from loginAction', data)
+
     let { email, userId, avatar } = data
     dispatch({
       type: LOGIN,
       payload: { email, userId, avatar }
     })
   } catch (error) {
-    console.log('error.response.data', error.response.data)
+    console.log('error.response.data on loginAction', error.response.data)
 
     // check what type of errors we have. field validation - valErrors{} or auth errors - errors{}
     if (error.response.data.valErrors) {
@@ -35,7 +36,7 @@ export const loginAction = ({ reqBody, url }) => async dispatch => {
         payload: error.response.data.errors
       })
     } else {
-      console.log('error on loginAction from userReducer:', error)
+      console.log('error on loginAction :', error)
     }
   }
 }

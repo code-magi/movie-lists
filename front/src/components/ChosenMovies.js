@@ -5,7 +5,7 @@ import '../css/MakeList.css'
 // import App from "../App.js";
 
 class ChosenMovies extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
 
@@ -20,25 +20,26 @@ class ChosenMovies extends Component {
     // let showTrashIcon=()=>{
     //   imageAnimationStyle={width:"600px"}
     // }
-    console.log('displaying movies')
+
+    // console.log('displaying movies')
     let moviesArr = this.props.parent.state.chosenMovies
 
     let movieDOMSArr = moviesArr.map((elem, index) => {
       return (
         <span
-          className='each-chosen-movie-holder'
+          className="each-chosen-movie-holder"
           onClick={() => this.removeMovie(elem, index)}
         >
           <img
-            className='image-inside-list'
+            className="image-inside-list"
             src={'https://image.tmdb.org/t/p/w500' + elem.poster_path}
             // onClick={() => this.removeMovie(elem, index)}
             // onMouseOver={()=>{showTrashIcon()}}
-            alt=''
+            alt=""
           />
-          <div className='middle'>
-            <a href='#' className='icon-trash'>
-              <i className='far fa-trash-alt' />
+          <div className="middle">
+            <a href="#" className="icon-trash">
+              <i className="far fa-trash-alt" />
             </a>
           </div>
           {/* <div className="image-inside-list-title">{elem.original_title}</div> */}
@@ -48,7 +49,7 @@ class ChosenMovies extends Component {
     return movieDOMSArr
   }
 
-  removeMovie (elem, index) {
+  removeMovie(elem, index) {
     console.log('removing Movie')
     console.log('elem', elem)
     console.log('index', index)
@@ -60,8 +61,8 @@ class ChosenMovies extends Component {
     this.props.parent.setState({ chosenMovies: newArr })
   }
 
-  render () {
-    return <div className='row row-bottom-make'>{this.displayMovies()}</div>
+  render() {
+    return <div className="row row-bottom-make">{this.displayMovies()}</div>
   }
 }
 

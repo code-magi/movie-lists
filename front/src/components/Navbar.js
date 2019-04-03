@@ -33,7 +33,8 @@ class Navbar extends Component {
         </React.Fragment>
       )
     } else {
-      console.log('logout rendered')
+
+      // console.log('logout rendered')
       return (
         <React.Fragment>
           <li className='nav-item'>

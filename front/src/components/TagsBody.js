@@ -1,15 +1,16 @@
-
 import React, { Component } from 'react'
 import '../css/style.css'
 
 import '../css/MakeList.css'
 
 class TagsBody extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
 
-  handleInputTag = (evt) => {
+  handleInputTag = evt => {
+    // console.log('handleInputTag calls')
+
     // this adds constraints to input tags field. for example ^ cant be used and no more than 15 characters
     if (
       evt.target.value[evt.target.value.length - 1] === '^' ||
@@ -17,39 +18,51 @@ class TagsBody extends Component {
     ) {
       return
     }
-    this.props.grandParent.setState({ inputTag: evt.currentTarget.value })
+    this.props.grandParent.setState({ inputTag: evt.key.value })
   }
 
   // adds tag
-  handleSubmit = (evt) => {
+  handleEnterOnTagField = evt => {
+    // console.log('handleEnterOnTagField called')
     evt.preventDefault()
-    if (this.props.grandParent.state.inputTag.trim().length) {
-      console.log('adding tag', this.props.grandParent.state.inputTag)
-      if (this.props.grandParent.state.tags.length <= 10) {
-        this.props.grandParent.setState({
-          tags: this.props.grandParent.state.tags.concat(
-            this.props.grandParent.state.inputTag
-          ),
-          inputTag: '',
-          message: ''
-        })
-      } else {
-        this.props.grandParent.setState({
-          message: 'Lists can only have a maximum of 10 tags'
-        })
+    evt.stopPropagation()
+
+    // Separate Enter from another input
+    if (evt.keyCode === 13 || evt.which === 13) {
+      // Run on Enter only
+
+      // Check for 10 tags only. If more show msg
+      if (this.props.grandParent.state.inputTag.trim().length) {
+        console.log('adding tag', this.props.grandParent.state.inputTag)
+        if (this.props.grandParent.state.tags.length <= 10) {
+          this.props.grandParent.setState({
+            tags: this.props.grandParent.state.tags.concat(
+              this.props.grandParent.state.inputTag
+            ),
+            inputTag: '',
+            message: ''
+          })
+        } else {
+          this.props.grandParent.setState({
+            message: 'Lists can only have a maximum of 10 tags'
+          })
+        }
       }
+    } else {
+      this.handleInputTag(evt)
     }
   }
 
   displayTags = () => {
     return this.props.grandParent.state.tags.map((elem, index) => {
+      // Key should be unique and stable. Here we are more on stability side. Tag could NOT be unique by user enter. React will complain about. We can implement md5(elem), but it is unique like elem itself, so we just use elem
       return (
-        <div className='tag'>
+        <div className="tag" key={elem}>
           {elem}
           <span
             name={index}
-            className='fas fa-tag ml-2'
-            data-fa-transform='rotate-30'
+            className="fas fa-tag ml-2"
+            data-fa-transform="rotate-30"
             onClick={evt => {
               console.log('evt', evt)
               console.log('i just clicked on a tag')
@@ -66,18 +79,21 @@ class TagsBody extends Component {
     })
   }
 
-  render () {
+  render() {
+    // TODO: resolve this
+    // We can't use <form> here - parent ListPropertiesForm also have <form>. React complains about nested forms in DOM. So we try to use onKeyUp which looses to onChange(onKeyPress and onKeyDown win from it). But it also loose to parent ListPropertiesFrom submit form.
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <input
-            type='text'
+            type="text"
             onChange={this.handleInputTag}
-            name='tag'
+            onKeyPress={this.handleEnterOnTagField}
+            name="tag"
             value={this.props.grandParent.state.inputTag}
-            autoComplete='off'
+            autoComplete="off"
           />
-          <div className='tags-holder'>{this.displayTags()}</div>
+          <div className="tags-holder">{this.displayTags()}</div>
         </form>
       </div>
     )

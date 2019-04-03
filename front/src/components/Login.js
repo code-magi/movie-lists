@@ -3,7 +3,6 @@ import '../css/style.css'
 import { Redirect } from 'react-router-dom'
 import '../css/LoginSignup.css'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import Modal from 'react-modal'
 
 import { loginAction, clearErrorObjectsAction } from '../actions/userActions'
@@ -74,52 +73,6 @@ class Login extends Component {
     // To avoid a problem with params order Let's pass an obj
     let paramObj = {reqBody, url}
     this.props.loginAction(paramObj)
-
-    // TODO: uncomment
-    // try {
-    //   console.log('fetch from endpoint /lists')
-    //   axios({
-    //     method: 'get',
-    //     url: 'api/lists',
-    //     withCredentials: true
-    //   }).then(response => {
-    //     console.log('response', response)
-    //     let responseLists = response.data.lists
-    //     console.log('responseLists', responseLists)
-    //     this.props.dispatch({ type: 'getLists', payload: responseLists })
-    //   })
-    // } catch (error) {
-    //   console.log('error on fetching from endpoint /lists', error);
-    // }
-
-
-          //// add the list to the store for the particular user"
-          // console.log('fetch from endpoint /lists')
-          // axios({
-          //   method: 'get',
-          //   url: 'api/lists',
-          //   withCredentials: true
-          // }).then(response => {
-          //   console.log('response', response)
-          //   let responseLists = response.data.lists
-          //   console.log('responseLists', responseLists)
-          //   this.props.dispatch({ type: 'getLists', payload: responseLists })
-          // })
-        // } else {
-        //   this.setState({
-        //     modalMessage: 'Wrong username or password.'
-        //   })
-        // }
-      // }
-      // .catch(e => {
-      //   if (e) {
-      //     console.log('error', e.response.data.valErrors)
-      //     this.setState({
-      //       modalMessage: Object.values(e.response.data.valErrors).join(';')
-      //     })
-      //     // console.log("Error. probably username doesnt exist")
-      //   }
-      // })
   }
 
   openModal = () => {
@@ -152,8 +105,6 @@ class Login extends Component {
 
         // Check what's error exists and ca
         const {valErrors, authErrors} = this.props
-        console.log('valErrors :', valErrors);
-        console.log('authErrors :', authErrors);
         if(Object.keys(valErrors).length > 0) return createModalMessageDiv(valErrors)
         if(Object.keys(authErrors).length > 0) return createModalMessageDiv(authErrors)
       }
@@ -174,6 +125,7 @@ class Login extends Component {
                   onChange={this.handleInputEmail}
                   value={this.state.inputEmail}
                   className='input-login-signup'
+                  autoComplete='on'
                 />
                 <div className='mb-1'>Email</div>
               </div>
@@ -183,6 +135,7 @@ class Login extends Component {
                   onChange={this.handleInputPassword}
                   value={this.state.inputPassword}
                   className=' ml-2 input-login-signup'
+                  autoComplete='on'
                 />
                 <div className=' ml-2 mb-2'>Password</div>
               </div>

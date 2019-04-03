@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 import './App.css'
 import { connect } from 'react-redux'
-import axios from 'axios'
+// import axios from 'axios'
 
 import Navbar from './components/Navbar'
 import Home from './components/Home'
@@ -19,64 +19,73 @@ import Premium from './components/Premium'
 import TagSearchResults from './components/TagSearchResults'
 import MyReviews from './components/MyReviews'
 import Profile from './components/Profile'
-
 import EditList from './components/EditList'
 
+import { loginAction } from './actions/userActions'
 // GLOBAL VARIABLES
 
 class App extends Component {
-  constructor (props) {
-    super(props)
-    this.state = { verified: false }
-  }
-  componentWillMount () {
-    let that = this
-    console.log('fetching to endpoint /user/check')
-    axios({
-      method: 'post',
-      url: '/api/users/check',
-      withCredentials: true
-    })
-      .then(response => {
-        console.log('response', response)
-        let email = response.data.email
-        console.log('user', email)
-        let userId = response.data.userId
-        console.log('userId', userId)
-        let avatar = response.data.avatar
-        console.log('userId', userId)
-        this.props.dispatch({
-          type: 'login',
-          payload: { email: email, userId: userId, avatar }
-        })
-      })
-      .then(() => {
-        axios({
-          method: 'get',
-          url: '/api/lists',
-          withCredentials: true
-        }).then(response => {
-          console.log('response', response)
-          let responseLists = response.data.lists
-          console.log('responseLists', responseLists)
+  // constructor (props) {
+  //   super(props)
+  //   // this.state = { verified: false }
+  // }
 
-          this.props.dispatch({ type: 'getLists', payload: responseLists })
-          that.setState({ verified: true })
-          console.log('checked successfully')
-        })
-      })
-      .catch(() => {
-        that.setState({ verified: true })
-      })
+  componentWillMount () {
+    console.log('fetching to endpoint /user/check')
+
+    // loginAction post cookie to api/check and return user data
+    // Param is an object with { reqBody, url }
+    let url = '/api/users/check'
+
+    // we have nothing to send as a data - cookie only
+    let reqBody = {}
+    let paramObj = { reqBody, url }
+    this.props.loginAction(paramObj)
+    // axios({
+    //   method: 'post',
+    //   url: '/api/users/check',
+    //   withCredentials: true
+    // })
+    //   .then(response => {
+    //     console.log('response', response)
+    //     let email = response.data.email
+    //     console.log('user', email)
+    //     let userId = response.data.userId
+    //     console.log('userId', userId)
+    //     let avatar = response.data.avatar
+    //     console.log('userId', userId)
+    //     this.props.dispatch({
+    //       type: 'login',
+    //       payload: { email: email, userId: userId, avatar }
+    //     })
+    //   })
+    // .then(() => {
+    //   axios({
+    //     method: 'get',
+    //     url: '/api/lists',
+    //     withCredentials: true
+    //   }).then(response => {
+    //     console.log('response', response)
+    //     let responseLists = response.data.lists
+    //     console.log('responseLists', responseLists)
+
+    //     this.props.dispatch({ type: 'getLists', payload: responseLists })
+    //     this.setState({ verified: true })
+    //     console.log('checked successfully')
+    //   })
+    // })
+    // .catch(() => {
+    //   this.setState({ verified: true })
+    // })
   }
 
   renderHome () {
-    console.log('Home page rendered')
+    // console.log('Home page rendered')
     return <Home />
   }
 
   renderSearch () {
-    console.log('Search page rendered')
+    // console.log('Search page rendered')
     return <Search />
   }
 
@@ -88,7 +97,7 @@ class App extends Component {
   }
 
   // devs only
-  // Render Test comp for fetch data from mongo and understand that it works
+  // Render Test comp for fetch data from mongo and understand it works
   // renderTest () {
   //   console.log('test page rendered')
   //   return (
@@ -97,30 +106,37 @@ class App extends Component {
   //     </div>
   //   )
   // }
+
   renderSignup () {
-    console.log('signup component rendered')
+    // console.log('signup component rendered')
     return <Signup />
   }
+
   renderLogin () {
-    console.log('login component rendered')
+    // console.log('login component rendered')
     return <Login />
   }
+
   renderLoginAlert () {
-    console.log('login alert rendered')
+    // console.log('login alert rendered')
     return <LoginAlert />
   }
+
   renderMakeList () {
-    console.log('makelist component rendered')
+    // console.log('makelist component rendered')
     return <MakeList />
   }
+
   renderEditList () {
-    console.log('editlist component rendered')
+    // console.log('editlist component rendered')
     return <EditList />
   }
+
   renderLists (routerData) {
-    console.log('lists component rendered')
+    // console.log('lists component rendered')
     return <Lists />
   }
+
   renderList (routerData) {
     if (
       routerData.match.params.id === 'makelist' ||
@@ -128,28 +144,31 @@ class App extends Component {
     ) {
       return <div />
     }
-    console.log('specific list component rendered')
-    console.log('path of list', routerData.match.params.id)
+    // console.log('specific list component rendered')
+    // console.log('path of list', routerData.match.params.id)
     return <List listId={routerData.match.params.id} />
   }
+
   renderSearchListResults (routerData) {
-    console.log('search list results route rendered')
-    console.log('path of page', routerData.match.params.id)
+    // console.log('search list results route rendered')
+    // console.log('path of page', routerData.match.params.id)
     return <SearchListResults />
   }
 
   renderPremium () {
-    console.log('premium component rendered')
+    // console.log('premium component rendered')
     return <Premium />
   }
+
   renderSearchTags (routerData) {
-    console.log('searchTags component rendered')
+    // console.log('searchTags component rendered')
     let tag = routerData.match.params.id
-    console.log('tag', tag)
+    // console.log('tag', tag)
     return <TagSearchResults tag={tag} />
   }
+
   renderMyReviews () {
-    console.log('routing to My reviews page')
+    // console.log('routing to My reviews page')
     return <MyReviews />
   }
 
@@ -159,50 +178,53 @@ class App extends Component {
   }
 
   render () {
-    if (this.state.verified) {
-      return (
-        <BrowserRouter>
-          <div className='App'>
-            <Navbar />
-            <Route exact path='/signup' render={this.renderSignup} />
-            <Route exact path='/login' render={this.renderLogin} />
-            <Route exact path='/' render={this.renderHome} />
-            <Route exact path='/premium' render={this.renderPremium} />
-            <Route exact path='/search' render={this.renderSearch} />
-            <Route exact path='/movie/:id' render={this.renderMovie} />
-            {/* <Route exact path='/test' render={this.renderTest} /> */}
-            <Route exact path='/lists/makelist' render={this.renderMakeList} />
-            <Route exact path='/lists' render={this.renderLists} />
-            <Route exact path={'/lists/:id'} render={this.renderList} />
-            <Route exact path={'/reviews'} render={this.renderMyReviews} />
+    // if (this.props.loggedIn) {
+    return (
+      <BrowserRouter>
+        <div className='App'>
+          <Navbar />
+          <Route exact path='/signup' render={this.renderSignup} />
+          <Route exact path='/login' render={this.renderLogin} />
+          <Route exact path='/' render={this.renderHome} />
+          <Route exact path='/premium' render={this.renderPremium} />
+          <Route exact path='/search' render={this.renderSearch} />
+          <Route exact path='/movie/:id' render={this.renderMovie} />
+          {/* <Route exact path='/test' render={this.renderTest} /> */}
+          <Route exact path='/lists/makelist' render={this.renderMakeList} />
+          <Route exact path='/lists' render={this.renderLists} />
+          <Route exact path={'/lists/:id'} render={this.renderList} />
+          <Route exact path={'/reviews'} render={this.renderMyReviews} />
 
-            <Route
-              exact
-              path={'/lists/editlist'}
-              render={this.renderEditList}
-            />
-            <Route
-              exact
-              path={'/searchlistresults/:id'}
-              render={this.renderSearchListResults}
-            />
-            <Route exact path='/loginalert' render={this.renderLoginAlert} />
-            <Route
-              exact
-              path='/searchtags/:id'
-              render={this.renderSearchTags}
-            />
-            <Route exact path='/profile' component={Profile} />
-          </div>
-        </BrowserRouter>
-      )
-    } else {
-      return <div>Page is loading</div>
-    }
+          <Route
+            exact
+            path={'/lists/editlist'}
+            render={this.renderEditList}
+          />
+          <Route
+            exact
+            path={'/searchlistresults/:id'}
+            render={this.renderSearchListResults}
+          />
+          <Route exact path='/loginalert' render={this.renderLoginAlert} />
+          <Route
+            exact
+            path='/searchtags/:id'
+            render={this.renderSearchTags}
+          />
+          <Route exact path='/profile' component={Profile} />
+        </div>
+      </BrowserRouter>
+    )
+    // } else {
+    //   return <div>Page is loading</div>
+    // }
   }
 }
-let mapStateToProps = function (state) {
-  return { lists: state.lists.lists }
+let mapStateToProps = (state) => {
+  return {
+    loggedIn: state.user.loggedIn,
+    lists: state.lists.lists
+  }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, { loginAction })(App)
