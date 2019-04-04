@@ -9,51 +9,50 @@ import SearchList from './SearchBarList'
 import Movielogo from '../media/images/movielists_logo.svg'
 
 class Navbar extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       moviesSearch: ''
     }
   }
 
-  CheckIfLoggedIn  = () => {
+  CheckIfLoggedIn = () => {
     if (!this.props.loggedIn) {
       return (
         <React.Fragment>
-          <li className='nav-item'>
-            <Link to='/signup' className='nav-link'>
+          <li className="nav-item">
+            <Link to="/signup" className="nav-link">
               SIGN UP
             </Link>
           </li>
-          <li className='nav-item'>
-            <Link to='/login' className='nav-link'>
+          <li className="nav-item">
+            <Link to="/login" className="nav-link">
               LOG IN
             </Link>
           </li>
         </React.Fragment>
       )
     } else {
-
       // console.log('logout rendered')
       return (
         <React.Fragment>
-          <li className='nav-item'>
+          <li className="nav-item">
             <Link
-              to='/profile'
-              className='nav-link'
+              to="/profile"
+              className="nav-link"
               // onClick={() => {
               //   console.log('onClick event')
               //   this.props.dispatch({ type: 'logout' })
               // }}
             >
-              <i className='fas fa-user' />
-              <span className='account-text'> MY ACCOUNT</span>
+              <i className="fas fa-user" />
+              <span className="account-text"> MY ACCOUNT</span>
             </Link>
           </li>
-          <li className='nav-item'>
+          <li className="nav-item">
             <Link
-              to='/'
-              className='nav-link'
+              to="/"
+              className="nav-link"
               onClick={() => {
                 console.log('onClick event')
                 this.props.dispatch({ type: 'logout' })
@@ -85,7 +84,7 @@ class Navbar extends Component {
   //   }
   // }
 
-  componentDidMount () {
+  componentDidMount() {
     document.getElementById('searchForm').addEventListener('submit', event => {
       event.preventDefault()
       let searchText = document.getElementById('searchText').value
@@ -120,7 +119,7 @@ class Navbar extends Component {
   //   // return imdbId
   // }
 
-  getMovies = (searchText) => {
+  getMovies = searchText => {
     if (searchText === '') {
       this.props.history.push('/')
     } else {
@@ -149,8 +148,12 @@ class Navbar extends Component {
             <div class="well img-holder-search">
               <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}">
               <div class="btn-group-vertical" role="group">
-              <button type="button" class="add-list-button-left buttonMovie-large" id="addMovieToLists" value="${movie.id}" >ADD TO LIST</button>
-              <button type="button" class="add-list-button-right buttonMovie-large" id="see-more-large" value="${movie.id}">SEE MORE INFO</button>
+              <button type="button" class="add-list-button-left buttonMovie-large" id="addMovieToLists" value="${
+                movie.id
+              }" >ADD TO LIST</button>
+              <button type="button" class="add-list-button-right buttonMovie-large" id="see-more-large" value="${
+                movie.id
+              }">SEE MORE INFO</button>
               </div>
             </div>
 
@@ -158,8 +161,12 @@ class Navbar extends Component {
               <h5 class="title-search-result">${movie.title}</h5>
               <p class="text-search-result">${movie.overview}</p>
               <div class="btn-group" role="group">
-              <button type="button" class="add-list-button-left buttonMovie-small" id="addMovieToLists" value="${movie.id}" >ADD TO LIST</button>
-              <button type="button" class="add-list-button-right buttonMovie-small" id="see-more-small" value="${movie.id}">SEE MORE INFO</button>
+              <button type="button" class="add-list-button-left buttonMovie-small" id="addMovieToLists" value="${
+                movie.id
+              }" >ADD TO LIST</button>
+              <button type="button" class="add-list-button-right buttonMovie-small" id="see-more-small" value="${
+                movie.id
+              }">SEE MORE INFO</button>
               </div>
             </div>
 
@@ -178,55 +185,55 @@ class Navbar extends Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <nav
-        className='navbar navbar-expand-lg navbar-dark'
-        id='navbar-main-style'
+        className="navbar navbar-expand-lg navbar-dark"
+        id="navbar-main-style"
       >
-        <Link to='/' className='navbar-brand'>
-          <img src={Movielogo} className='logo-navbar' alt='' />
+        <Link to="/" className="navbar-brand">
+          <img src={Movielogo} className="logo-navbar" alt="" />
         </Link>
 
         <button
-          className='navbar-toggler'
-          type='button'
-          data-toggle='collapse'
-          data-target='#navbarSupportedContent'
-          aria-controls='navbarSupportedContent'
-          aria-expanded='false'
-          aria-label='Toggle navigation'
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-          <span className='navbar-toggler-icon' />
+          <span className="navbar-toggler-icon" />
         </button>
 
-        <div className='collapse navbar-collapse' id='navbarSupportedContent'>
-          <ul className='navbar-nav ml-auto justify-content-end'>
-            <li className='nav-item dropdown desktop-only'>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ml-auto justify-content-end">
+            <li className="nav-item dropdown desktop-only">
               <a
-                className='nav-link dropdown-toggle'
-                id='navbarDropdownMenuLink'
-                data-toggle='dropdown'
-                aria-haspopup='true'
-                aria-expanded='false'
+                className="nav-link dropdown-toggle"
+                id="navbarDropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
                 SEARCH
               </a>
               <div
-                className='dropdown-menu dropdown-primary'
-                aria-labelledby='navbarDropdownMenuLink'
+                className="dropdown-menu dropdown-primary"
+                aria-labelledby="navbarDropdownMenuLink"
               >
                 <form
-                  className='form-inline form-spacing form-lists-control'
-                  id='searchForm'
+                  className="form-inline form-spacing form-lists-control"
+                  id="searchForm"
                 >
                   <input
-                    className='form-control search-select input-lists-control'
-                    type='search'
-                    id='searchText'
-                    placeholder='Search movies'
-                    aria-label='Search'
-                    autoComplete='off'
+                    className="form-control search-select input-lists-control"
+                    type="search"
+                    id="searchText"
+                    placeholder="Search movies"
+                    aria-label="Search"
+                    autoComplete="off"
                   />
                 </form>
 
@@ -253,22 +260,22 @@ class Navbar extends Component {
                 </li>
               </ul> */}
 
-            <li className='nav-item mobile-only'>
+            <li className="nav-item mobile-only">
               <form
-                className='form-inline form-spacing form-lists-control'
-                id='searchFormTwo'
+                className="form-inline form-spacing form-lists-control"
+                id="searchFormTwo"
               >
                 <input
-                  className='form-control search-select input-lists-control'
-                  type='search'
-                  id='searchTextTwo'
-                  placeholder='Search movies'
-                  aria-label='Search'
-                  autoComplete='off'
+                  className="form-control search-select input-lists-control"
+                  type="search"
+                  id="searchTextTwo"
+                  placeholder="Search movies"
+                  aria-label="Search"
+                  autoComplete="off"
                 />
               </form>
             </li>
-            <li className='nav-item mobile-only'>
+            <li className="nav-item mobile-only">
               <SearchList />
             </li>
 
@@ -283,25 +290,25 @@ class Navbar extends Component {
                     LOG IN
                   </Link>
                 </li> */}
-            <li className='nav-item'>
-              <Link to='/reviews' className='nav-link'>
+            <li className="nav-item">
+              <Link to="/reviews" className="nav-link">
                 MY REVIEWS
               </Link>
             </li>
-            <li className='nav-item'>
-              <Link to='/lists' className='nav-link'>
+            <li className="nav-item">
+              <Link to="/lists" className="nav-link">
                 MY LISTS
               </Link>
             </li>
-            <li className='nav-item'>
-              <Link to='/lists/makelist' className='nav-link'>
+            <li className="nav-item">
+              <Link to="/lists/makelist" className="nav-link">
                 MAKE LIST
               </Link>
             </li>
 
-            <li className='nav-item'>
-              <Link to='/premium' className='nav-link'>
-                PREMIUM
+            <li className="nav-item">
+              <Link to="/premium" className="nav-link">
+                PREMIUMS
               </Link>
             </li>
           </ul>
@@ -311,7 +318,7 @@ class Navbar extends Component {
   }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = state => {
   return {
     loggedIn: state.user.loggedIn,
     user: state.user.user,

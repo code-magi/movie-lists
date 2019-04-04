@@ -32,10 +32,11 @@ react.movielists.ca:
     ✔ Decompose multi-components files into several small components @done(19-03-31 18:07)
     ✔ Remove that = this @done(19-03-31 18:07)
     ✔ Format with '' and no semicolon at the end @done(19-03-31 18:07)
-  Back:
+    ✔ Deploy front v2.0 for testing to Netlify @done(19-04-03 22:01)
+    Back:
     ✔ Create ml-test db @done(19-04-03 17:13)
     ✔ Make backup for db ml @done(19-04-03 17:13)
-    ☐ Deploy v2.0 for testing to Netlify 
+    ☐ Deploy back v2.0 for testing to Heroku
 v2.1:
   Front:
     ☐ Implement React Hooks instead of classes
