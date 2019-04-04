@@ -1,0 +1,4 @@
+[build]
+base = "movie-list-front/"
+publish = "movie-list-front/build/"
+command = "yarn build"

@@ -35,7 +35,7 @@ react.movielists.ca:
   Back:
     ✔ Create ml-test db @done(19-04-03 17:13)
     ✔ Make backup for db ml @done(19-04-03 17:13)
-    ☐ Deploy v2.0 to DO
+    ☐ Deploy v2.0 for testing to Netlify 
 v2.1:
   Front:
     ☐ Implement React Hooks instead of classes
