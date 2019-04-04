@@ -28,7 +28,7 @@ react.movielists.ca:
     ✔ Bring server-side fields verification to Front @done(19-04-03 14:35)
     ✔ Change icon @done(19-03-29 21:31)
     ✔ Exchange .bind() to arrow func @done(19-03-31 18:07)
-    ✔ Change app root at Singup react-module(like it is in Login) @done(19-03-31 18:07)
+    ✔ Change app root at Signup react-module(like it is in Login) @done(19-03-31 18:07)
     ✔ Decompose multi-components files into several small components @done(19-03-31 18:07)
     ✔ Remove that = this @done(19-03-31 18:07)
     ✔ Format with '' and no semicolon at the end @done(19-03-31 18:07)
