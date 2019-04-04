@@ -5,6 +5,7 @@ Bugs:
     ☐ Make lists empty after logout. Lists[] was in root of Redux Store in old version Redux. Now we have lists{}. After logout we need dispatch that action to listsReducer
     ☐ Stripe front error
     ☐ TagBody has form tag which is inside ListPropertiesForm form tag
+    ☐ Check o in Movielists logo should be yellow
   Back:
 v2.0:
 react.movielists.ca:
