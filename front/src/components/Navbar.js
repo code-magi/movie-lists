@@ -308,7 +308,7 @@ class Navbar extends Component {
 
             <li className="nav-item">
               <Link to="/premium" className="nav-link">
-                PREMIUMSS
+                PREMIUM
               </Link>
             </li>
           </ul>
