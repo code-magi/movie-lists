@@ -6,6 +6,7 @@ Bugs:
     ☐ Stripe front error
     ☐ TagBody has form tag which is inside ListPropertiesForm form tag
     ☐ Check o in Movielists logo should be yellow
+    ☐ Test for submodule
   Back:
 v2.0:
 react.movielists.ca:
