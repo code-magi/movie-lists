@@ -6,7 +6,6 @@ Bugs:
     ☐ Stripe front error
     ☐ TagBody has form tag which is inside ListPropertiesForm form tag
     ☐ Check o in Movielists logo should be yellow
-    ☐ Test for submodule
   Back:
 v2.0:
 react.movielists.ca:
@@ -26,7 +25,7 @@ react.movielists.ca:
     ☐ Create reviewsReducer and reviewsActions @Jonathan 
     ☐ Subsidize dispatches in components by  ...reviewsActions @Jonathan 
     ☐ Finish profile fields 
-    ☐ Design user profile page @Jonathan
+    ☐ Design user profile page
     ✔ Bring server-side fields verification to Front @done(19-04-03 14:35)
     ✔ Change icon @done(19-03-29 21:31)
     ✔ Exchange .bind() to arrow func @done(19-03-31 18:07)
