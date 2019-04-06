@@ -302,7 +302,7 @@ class Navbar extends Component {
             </li>
             <li className="nav-item">
               <Link to="/lists/makelist" className="nav-link">
-                MAKE LIST
+                MAKE LISTS
               </Link>
             </li>
 
