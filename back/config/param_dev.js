@@ -4,5 +4,5 @@ module.exports = {
   CORS: 'http://localhost:3080',
   SERVER_PORT: 5050,
   JWT_SECRET: 'HgkT8FmXGCBqznszqjsYDsrKx',
-  TEST: 'test'
+  TEST01: 'test'
 }
