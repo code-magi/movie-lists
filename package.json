@@ -1,0 +1,23 @@
+{
+  "name": "movie-list-back",
+  "version": "2.0.0",
+  "description": "",
+  "scripts": {
+    "client": "cd ../front && yarn start",
+    "server": "cd ../back && nodemon server.js",
+    "pm2srv": "cd ../back && pm2 start server.js",
+    "dev": "concurrently \"yarn run client\" \"yarn run server\"",
+    "build": "cd ../front && yarn build",
+    "prod": "NODE_ENV=production node server.js",
+    "do-prod": "NODE_ENV=production node -r dotenv/config server.js",
+    "do-b-run": "yarn --cwd ../front build && NODE_ENV=production node -r dotenv/config server.js",
+    "inst": "yarn --cwd ../front install && yarn --cwd ../back install",
+    "heroku-postbuild": "NODE_ENV=dev yarn --cwd ../front install && yarn --cwd ../back install && cd ../front && yarn build "
+  },
+  "keywords": [
+    "movie",
+    "lists"
+  ],
+  "author": "Jonathan-Konrad-Denis",
+  "license": "ISC"
+}
