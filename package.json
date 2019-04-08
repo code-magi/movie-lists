@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "",
   "scripts": {
+    "start": "NODE_ENV=dev yarn --cwd ../front install && yarn --cwd ../back install && cd ../front && yarn build ",
     "client": "cd ../front && yarn start",
     "server": "cd ../back && nodemon server.js",
     "pm2srv": "cd ../back && pm2 start server.js",
@@ -19,5 +20,8 @@
     "lists"
   ],
   "author": "Jonathan-Konrad-Denis",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": "10.x"
+  }
 }
