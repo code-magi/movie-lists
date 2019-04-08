@@ -3,6 +3,5 @@ module.exports = {
     'mongodb://testUser:msPDVnaAsNmmXkXQb8@mng.movielists.ca:27017/ml-test',
   CORS: 'http://localhost:3080',
   SERVER_PORT: 5050,
-  JWT_SECRET: 'HgkT8FmXGCBqznszqjsYDsrKx',
-  TEST01: 'test'
+  JWT_SECRET: 'HgkT8FmXGCBqznszqjsYDsrKx'
 }
