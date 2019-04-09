@@ -3,17 +3,18 @@
   "version": "2.0.0",
   "description": "",
   "scripts": {
-    "start": "NODE_ENV=dev yarn --cwd ../front install && yarn --cwd ../back install && cd ../front && yarn build ",
-    "client": "cd ../front && yarn start",
-    "server": "cd ../back && nodemon server.js",
-    "pm2srv": "cd ../back && pm2 start server.js",
+    "start": "cd ./back && node server.js",
+    "client": "cd ./front && yarn start",
+    "server": "cd ./back && nodemon server.js",
+    "pm2srv": "cd ./back && pm2 start server.js",
     "dev": "concurrently \"yarn run client\" \"yarn run server\"",
-    "build": "cd ../front && yarn build",
+    "build": "cd ./front && yarn build",
     "prod": "NODE_ENV=production node server.js",
     "do-prod": "NODE_ENV=production node -r dotenv/config server.js",
     "do-b-run": "yarn --cwd ../front build && NODE_ENV=production node -r dotenv/config server.js",
     "inst": "yarn --cwd ../front install && yarn --cwd ../back install",
-    "heroku-postbuild": "NODE_ENV=dev yarn --cwd ../front install && yarn --cwd ../back install && cd ../front && yarn build "
+    "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
+    "heroku-postbuild": "YARN_PRODUCTION=false yarn --cwd ../front install && yarn --cwd ../back install && cd ./front && yarn build "
   },
   "keywords": [
     "movie",
@@ -22,6 +23,7 @@
   "author": "Jonathan-Konrad-Denis",
   "license": "ISC",
   "engines": {
-    "node": "10.x"
+    "node": "11.x",
+    "yarn": "1.x"
   }
 }
