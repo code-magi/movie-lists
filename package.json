@@ -14,7 +14,8 @@
     "do-b-run": "yarn --cwd ../front build && NODE_ENV=production node -r dotenv/config server.js",
     "inst": "yarn --cwd ../front install && yarn --cwd ../back install",
     "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
-    "heroku-postbuild": "YARN_PRODUCTION=false yarn --cwd ../front install && yarn --cwd ../back install && yarn --cwd ../front build "
+    "heroku-postbuild-yarn": "YARN_PRODUCTION=false yarn --cwd ../front install && yarn --cwd ../back install && yarn --cwd ../front build ",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm --prefix front install && npm --prefix back install && npm --prefix front build "
   },
   "keywords": [
     "movie",
