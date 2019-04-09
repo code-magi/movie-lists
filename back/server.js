@@ -36,7 +36,6 @@ app.use(cors({ credentials: true, origin: config.CORS }))
 // DB config with mongoose
 const uri = config.MONGO_DO
 console.log('uri', uri)
-
 ;(async () => {
   try {
     await mongoose.connect(uri, { useNewUrlParser: true })
@@ -70,8 +69,8 @@ app.use('/api/profiles', profilesRoute)
 // Serve React static assets if in production
 console.log('process.env.NODE_ENV ', process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'production') {
-// Check process.env variable from .env
-// require('dotenv').config() // we use a command in package.json instead
+  // Check process.env variable from .env
+  // require('dotenv').config() // we use a command in package.json instead
   console.log('process.env.ML_SERVER_PORT ', process.env.ML_SERVER_PORT)
   console.log('process.env.NODE_ENV ', process.env.NODE_ENV)
   console.log('process.env.ML_CORS ', process.env.ML_CORS)
@@ -88,6 +87,8 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-app.listen(config.SERVER_PORT, () => {
-  console.log(`listening on port ${config.SERVER_PORT}...`)
+const PORT = process.env.PORT || config.SERVER_PORT
+
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}...`)
 })
