@@ -40,6 +40,7 @@ react.movielists.ca:
     ✔ Create ml-test db @done(19-04-03 17:13)
     ✔ Make backup for db ml @done(19-04-03 17:13)
     ☐ Deploy back v2.0 for testing to Heroku
+    ☐ Connect Heroku v2-movie-lists.heroku.com to DO Mongodb
     Tests:
       ☐ Test before PR
     PR:
