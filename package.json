@@ -8,7 +8,7 @@
     "server": "cd ./back && nodemon server.js",
     "pm2srv": "cd ./back && pm2 start server.js",
     "dev": "concurrently \"yarn run client\" \"yarn run server\"",
-    "build": "cd ./front && ls ./node_modules && yarn build",
+    "build": "cd ../front && ls ../node_modules && yarn build",
     "build-npm": "cd ./front && yarn build",
     "prod": "NODE_ENV=production node server.js",
     "do-prod": "NODE_ENV=production node -r dotenv/config server.js",
