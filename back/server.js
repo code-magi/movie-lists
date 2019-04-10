@@ -74,6 +74,7 @@ if (process.env.NODE_ENV === 'production') {
   console.log('process.env.ML_SERVER_PORT ', process.env.ML_SERVER_PORT)
   console.log('process.env.SERVER_PORT ', process.env.SERVER_PORT)
   console.log('config.SERVER_PORT ', config.SERVER_PORT)
+  console.log('process.env.PORT ', process.env.PORT)
   console.log('process.env.NODE_ENV ', process.env.NODE_ENV)
   console.log('process.env.ML_CORS ', process.env.ML_CORS)
   console.log('process.env.ML_MONGO_URL ', process.env.ML_MONGO_DO_URI)
@@ -89,6 +90,8 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-app.listen(config.SERVER_PORT, () => {
-  console.log(`listening on port ${config.SERVER_PORT}...`)
+const PORT = process.env.PORT || config.SERVER_PORT
+
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}...`)
 })
