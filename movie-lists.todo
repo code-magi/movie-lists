@@ -36,11 +36,13 @@ react.movielists.ca:
     ✔ Deploy front v2.0 for testing to Netlify https://v2-movielists.netlify.com/ @done(19-04-03 22:01)
     ✔ Deploy front v2.0 as submodule to Netlify https://5netlify-test.netlify.com/ @done(19-04-05 22:01)
     ✔ Remove keys from GH @done(19-04-08 13:32)
+    ✔ Connect https://v2-movielists.netlify.com/ with backend on DO http://mng.movielists.ca:15021. Cancel. As said by Dan Abramov https://github.com/facebook/create-react-app/issues/586#issuecomment-244797788 proxy is for devs only. In case we use /api on front we have to deploy express and front with CRA(create-react-app) on the same server. Common way is express back serve both /api and /* to static /build. (We use that scenario on combat DO with help of NGNIX for SSL.) So, there is no simple way to point to webpack to another back when he builds. react-scripts build is using webpack.config.js from front/node_modules/react-scripts/config/webpack.config.js to edit means make version update for CRA manually. Another way is re-write all particulate backend - not good even backend can move also. @done(19-04-10 20:21)
     Back:
     ✔ Create ml-test db @done(19-04-03 17:13)
     ✔ Make backup for db ml @done(19-04-03 17:13)
-    ☐ Deploy back v2.0 for testing to Heroku
-    ☐ Connect Heroku v2-movie-lists.heroku.com to DO Mongodb
+    ✔ Deploy back v2.0 for testing to Heroku. Cancel. Because we need build in proxies from heroku add-on fixie(and the same) - unfairly complicated task for simple deployment @done(19-04-10 13:41)
+    ✔ Connect Heroku v2-movie-lists.heroku.com to DO Mongodb. Heroku hosts on AWS and we have to use add-ons for get static IP. Cancel. @done(19-04-10 13:41)
+    ✔ Deploy separated from from fork to DO. http://mng.movielists.ca:15021 @done(19-04-10 20:09)
     Tests:
       ☐ Test before PR
     PR:
