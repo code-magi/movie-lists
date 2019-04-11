@@ -13,7 +13,7 @@
     "prod": "NODE_ENV=production node server.js",
     "do-prod": "NODE_ENV=production node -r dotenv/config server.js",
     "do-b-run": "yarn --cwd ./front build && NODE_ENV=production node -r dotenv/config server.js",
-    "do-pull-run-v2": "git pull && git checkout v2 && yarn --cwd ./front build && NODE_ENV=production node -r dotenv/config server.js",
+    "do-pull-run-v2": "git pull && git checkout v2.0 && yarn --cwd ./front build && NODE_ENV=production node -r dotenv/config server.js",
     "inst": "yarn --cwd ./front install && yarn --cwd ./back install",
     "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
     "heroku-postbuild": "YARN_PRODUCTION=false yarn --cwd ./front install && yarn --cwd ./back install && yarn build",
