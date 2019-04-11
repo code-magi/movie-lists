@@ -37,6 +37,8 @@ react.movielists.ca:
     ✔ Deploy front v2.0 as submodule to Netlify https://5netlify-test.netlify.com/ @done(19-04-05 22:01)
     ✔ Remove keys from GH @done(19-04-08 13:32)
     ✔ Connect https://v2-movielists.netlify.com/ with backend on DO http://mng.movielists.ca:15021. Cancel. As said by Dan Abramov https://github.com/facebook/create-react-app/issues/586#issuecomment-244797788 proxy is for devs only. In case we use /api on front we have to deploy express and front with CRA(create-react-app) on the same server. Common way is express back serve both /api and /* to static /build. (We use that scenario on combat DO with help of NGNIX for SSL.) So, there is no simple way to point to webpack to another back when he builds. react-scripts build is using webpack.config.js from front/node_modules/react-scripts/config/webpack.config.js to edit means make version update for CRA manually. Another way is re-write all particulate backend - not good even backend can move also. @done(19-04-10 20:21)
+    ✔ Deploy on Netlify express+lambda functions + front. Cancel. We have to change all fetch on front. to /.netlify/functions. SuperNice instructions https://blog.bitsrc.io/react-production-deployment-part-1-netlify-703686631dd1 @done(19-04-10 22:24)
+    ☐ Deploy v2 fullstack on DO
     Back:
     ✔ Create ml-test db @done(19-04-03 17:13)
     ✔ Make backup for db ml @done(19-04-03 17:13)
@@ -53,6 +55,7 @@ v2.1:
     ☐ Implement React Hooks instead of classes
     ☐ Login with Google button
   Back:
+    ☐ CD with Jenkins on DO https://www.digitalocean.com/community/tutorials/how-to-set-up-continuous-integration-pipelines-in-jenkins-on-ubuntu-16-04
     ☐ Implement Passport Google-OAth strategy
 v2.2:
   Front:
